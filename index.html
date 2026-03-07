@@ -3,573 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A stunning modern website with bold design">
-    <title>Bold & Modern Website</title>
+    <meta name="description" content="Truman Gilliam - Personal Website | Research, Portfolio, and Professional Experience">
+    <meta name="keywords" content="Truman Gilliam, Research, Portfolio, Academic">
+    <title>Truman Gilliam | Portfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Floating Navigation Bar with Glass Effect -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">NEXUS</span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <button class="nav-cta">Get Started</button>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <!-- ===================================
+         HEADER NAVIGATION BAR
+         =================================== -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo/Name -->
+                <a href="#home" class="logo">
+                    <span class="logo-initial">TG</span>
+                    <span class="logo-name">Truman Gilliam</span>
+                </a>
 
-    <!-- Dynamic Hero Section with Animated Background -->
+                <!-- Navigation Menu -->
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#research" class="nav-link">Research</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/truman-gilliam/" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="nav-link linkedin-btn">
+                            <i class="fab fa-linkedin"></i>
+                            LinkedIn
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Mobile Hamburger Menu -->
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===================================
+         HOME/HERO SECTION
+         =================================== -->
     <section id="home" class="hero">
-        <!-- Animated gradient background -->
         <div class="hero-background">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
+            <div class="hero-shape shape-1"></div>
+            <div class="hero-shape shape-2"></div>
+            <div class="hero-shape shape-3"></div>
         </div>
         
-        <!-- Floating geometric shapes -->
-        <div class="floating-shapes">
-            <div class="shape shape-1"></div>
-            <div class="shape shape-2"></div>
-            <div class="shape shape-3"></div>
-            <div class="shape shape-4"></div>
-            <div class="shape shape-5"></div>
-        </div>
-
-        <!-- Hero content with split layout -->
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-dot"></span>
-                    <span>Welcome to the future</span>
-                </div>
-                <h1 class="hero-title">
-                    Create Something
-                    <span class="gradient-text">Extraordinary</span>
-                </h1>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-title">Truman Gilliam</h1>
+                <p class="hero-subtitle">Researcher | Developer | Innovator</p>
                 <p class="hero-description">
-                    Push boundaries. Break conventions. Design experiences that inspire and captivate your audience with cutting-edge technology.
+                    Passionate about advancing knowledge through research and creating 
+                    meaningful impact through technology and innovation.
                 </p>
-                <div class="hero-buttons">
-                    <button class="btn-primary" onclick="scrollToSection('services')">
-                        Explore More
-                        <span class="btn-arrow">→</span>
-                    </button>
-                    <button class="btn-secondary">
-                        <span class="play-icon">▶</span>
-                        Watch Demo
-                    </button>
-                </div>
                 
-                <!-- Stats section -->
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="500">0</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="98">0</div>
-                        <div class="stat-label">Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="50">0</div>
-                        <div class="stat-label">Awards</div>
-                    </div>
+                <!-- Call to Action Buttons -->
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <a href="#research" class="btn btn-secondary">
+                        <i class="fas fa-microscope"></i>
+                        View Research
+                    </a>
+                </div>
+
+                <!-- Social Links -->
+                <div class="hero-social">
+                    <a href="https://www.linkedin.com/in/truman-gilliam/" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/trumangilliam" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       aria-label="GitHub Profile">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:your.email@example.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
             </div>
 
-            <!-- Hero visual element -->
-            <div class="hero-visual">
-                <div class="visual-card card-3d">
-                    <div class="card-glow"></div>
-                    <div class="card-content">
-                        <div class="visual-icon">🚀</div>
-                        <h3>Innovation</h3>
-                        <p>Leading edge design</p>
+            <!-- Profile Image -->
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-image-wrapper">
+                        <!-- Replace with your actual photo -->
+                        <img src="images/profile.jpg" 
+                             alt="Truman Gilliam" 
+                             class="profile-image"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 200\'%3E%3Crect fill=\'%23ff8c42\' width=\'200\' height=\'200\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'80\' fill=\'white\'%3ETG%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <div class="profile-badge">
+                        <i class="fas fa-check-circle"></i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <p>Scroll to explore</p>
-        </div>
+        <!-- Scroll Down Indicator -->
+        <a href="#about" class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
     </section>
 
-    <!-- About Section with Diagonal Split Design -->
-    <section id="about" class="about-section">
-        <div class="diagonal-background"></div>
-        <div class="container">
-            <div class="about-grid">
-                <!-- Left side: Image/Visual -->
-                <div class="about-visual">
-                    <div class="image-stack">
-                        <div class="stack-item stack-back" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <div class="stack-overlay">Creative Design</div>
-                        </div>
-                        <div class="stack-item stack-front" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <div class="stack-overlay">Modern Tech</div>
-                        </div>
-                    </div>
-                    <!-- Decorative elements -->
-                    <div class="about-decoration">
-                        <div class="deco-circle"></div>
-                        <div class="deco-dots">
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right side: Content -->
-                <div class="about-content">
-                    <div class="section-label">Who We Are</div>
-                    <h2 class="section-title">We Build Digital Experiences That Matter</h2>
-                    <p class="section-description">
-                        We're not just another agency. We're a team of passionate creators, strategists, and innovators dedicated to transforming your vision into reality with cutting-edge technology and design.
-                    </p>
-                    
-                    <!-- Feature list with icons -->
-                    <div class="feature-list">
-                        <div class="feature-item">
-                            <div class="feature-icon">✓</div>
-                            <div class="feature-text">
-                                <h4>User-Centric Design</h4>
-                                <p>Every pixel serves a purpose</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">✓</div>
-                            <div class="feature-text">
-                                <h4>Scalable Solutions</h4>
-                                <p>Built to grow with your business</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">✓</div>
-                            <div class="feature-text">
-                                <h4>24/7 Support</h4>
-                                <p>We're here when you need us</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn-outline">Learn More About Us</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section with Card Hover Effects -->
-    <section id="services" class="services-section">
+    <!-- ===================================
+         ABOUT ME SECTION
+         =================================== -->
+    <section id="about" class="about section">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">What We Do</div>
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Comprehensive solutions tailored to your needs</p>
+                <span class="section-label">Get To Know</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="title-underline"></div>
             </div>
 
-            <!-- Services grid with 3D tilt effect -->
-            <div class="services-grid">
-                <!-- Service Card 1 -->
-                <div class="service-card" data-tilt>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">💻</div>
-                        <div class="icon-background"></div>
-                    </div>
-                    <h3 class="service-title">Web Development</h3>
-                    <p class="service-description">
-                        Lightning-fast, responsive websites built with modern frameworks and best practices.
+            <div class="about-content">
+                <!-- About Text -->
+                <div class="about-text">
+                    <p class="about-description">
+                        I am a dedicated researcher and developer with a passion for pushing 
+                        the boundaries of knowledge and technology. My work focuses on 
+                        [your research area], where I strive to make meaningful contributions 
+                        that can impact both academia and industry.
                     </p>
-                    <ul class="service-features">
-                        <li>React & Vue.js</li>
-                        <li>Progressive Web Apps</li>
-                        <li>E-commerce Solutions</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
+                    <p class="about-description">
+                        Beyond research, I enjoy [your hobbies] and believe in maintaining 
+                        a balanced approach to life. I'm always eager to collaborate on 
+                        innovative projects and connect with like-minded professionals.
+                    </p>
+
+                    <!-- Key Highlights -->
+                    <div class="highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Education</h4>
+                                <p>[Your Degree] in [Your Field]</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Research Focus</h4>
+                                <p>[Your Research Area]</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="highlight-text">
+                                <h4>Location</h4>
+                                <p>[Your Location]</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Service Card 2 -->
-                <div class="service-card featured" data-tilt>
-                    <div class="featured-badge">Most Popular</div>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">🎨</div>
-                        <div class="icon-background"></div>
+                <!-- Skills & Interests -->
+                <div class="about-skills">
+                    <div class="skills-card">
+                        <h3>
+                            <i class="fas fa-code"></i>
+                            Technical Skills
+                        </h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">R</span>
+                            <span class="skill-tag">MATLAB</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Machine Learning</span>
+                            <span class="skill-tag">Statistical Modeling</span>
+                            <!-- Add your actual skills -->
+                        </div>
                     </div>
-                    <h3 class="service-title">UI/UX Design</h3>
-                    <p class="service-description">
-                        Beautiful, intuitive interfaces that users love and conversion rates prove.
-                    </p>
-                    <ul class="service-features">
-                        <li>User Research</li>
-                        <li>Wireframing & Prototyping</li>
-                        <li>Design Systems</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
-                </div>
 
-                <!-- Service Card 3 -->
-                <div class="service-card" data-tilt>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">📱</div>
-                        <div class="icon-background"></div>
+                    <div class="skills-card">
+                        <h3>
+                            <i class="fas fa-heart"></i>
+                            Interests & Hobbies
+                        </h3>
+                        <div class="interests-list">
+                            <div class="interest-item">
+                                <i class="fas fa-book"></i>
+                                <span>Reading</span>
+                            </div>
+                            <div class="interest-item">
+                                <i class="fas fa-hiking"></i>
+                                <span>Hiking</span>
+                            </div>
+                            <div class="interest-item">
+                                <i class="fas fa-camera"></i>
+                                <span>Photography</span>
+                            </div>
+                            <div class="interest-item">
+                                <i class="fas fa-music"></i>
+                                <span>Music</span>
+                            </div>
+                            <!-- Add your actual hobbies -->
+                        </div>
                     </div>
-                    <h3 class="service-title">Mobile Apps</h3>
-                    <p class="service-description">
-                        Native and cross-platform mobile applications that deliver exceptional performance.
-                    </p>
-                    <ul class="service-features">
-                        <li>iOS & Android</li>
-                        <li>React Native</li>
-                        <li>Flutter Development</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
-                </div>
-
-                <!-- Service Card 4 -->
-                <div class="service-card" data-tilt>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">🚀</div>
-                        <div class="icon-background"></div>
-                    </div>
-                    <h3 class="service-title">Digital Marketing</h3>
-                    <p class="service-description">
-                        Data-driven strategies that boost visibility and drive measurable growth.
-                    </p>
-                    <ul class="service-features">
-                        <li>SEO Optimization</li>
-                        <li>Social Media</li>
-                        <li>Content Strategy</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
-                </div>
-
-                <!-- Service Card 5 -->
-                <div class="service-card" data-tilt>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">☁️</div>
-                        <div class="icon-background"></div>
-                    </div>
-                    <h3 class="service-title">Cloud Solutions</h3>
-                    <p class="service-description">
-                        Scalable infrastructure and deployment solutions for modern applications.
-                    </p>
-                    <ul class="service-features">
-                        <li>AWS & Azure</li>
-                        <li>DevOps Services</li>
-                        <li>Cloud Migration</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
-                </div>
-
-                <!-- Service Card 6 -->
-                <div class="service-card" data-tilt>
-                    <div class="service-icon-wrapper">
-                        <div class="service-icon">🔒</div>
-                        <div class="icon-background"></div>
-                    </div>
-                    <h3 class="service-title">Cybersecurity</h3>
-                    <p class="service-description">
-                        Comprehensive security solutions to protect your digital assets and data.
-                    </p>
-                    <ul class="service-features">
-                        <li>Security Audits</li>
-                        <li>Penetration Testing</li>
-                        <li>Compliance Management</li>
-                    </ul>
-                    <a href="#" class="service-link">
-                        Learn More
-                        <span class="link-arrow">→</span>
-                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section with Unique Layout -->
-    <section id="portfolio" class="portfolio-section">
+    <!-- ===================================
+         RESEARCH SECTION
+         =================================== -->
+    <section id="research" class="research section section-alt">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Our Work</div>
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-subtitle">Showcasing our best work</p>
+                <span class="section-label">My Work</span>
+                <h2 class="section-title">Research & Lab Involvement</h2>
+                <div class="title-underline"></div>
             </div>
 
-            <!-- Masonry-style portfolio grid -->
+            <!-- Research Interests -->
+            <div class="research-interests">
+                <h3 class="subsection-title">Research Interests</h3>
+                <div class="interests-grid">
+                    <div class="interest-card">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>Interest Area 1</h4>
+                        <p>Brief description of your first research interest and what fascinates you about it.</p>
+                    </div>
+                    <div class="interest-card">
+                        <div class="card-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h4>Interest Area 2</h4>
+                        <p>Brief description of your second research interest and its significance.</p>
+                    </div>
+                    <div class="interest-card">
+                        <div class="card-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h4>Interest Area 3</h4>
+                        <p>Brief description of your third research interest and potential impact.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lab Involvement -->
+            <div class="lab-involvement">
+                <h3 class="subsection-title">Laboratory Experience</h3>
+                <div class="lab-timeline">
+                    <!-- Lab Entry 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2023 - Present</span>
+                            <h4>[Lab Name] - [Institution]</h4>
+                            <p class="lab-role">Research Assistant / [Your Position]</p>
+                            <p class="lab-description">
+                                Description of your role, responsibilities, and key projects 
+                                you're working on in this laboratory setting.
+                            </p>
+                            <ul class="lab-achievements">
+                                <li>Achievement or contribution 1</li>
+                                <li>Achievement or contribution 2</li>
+                                <li>Achievement or contribution 3</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lab Entry 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2021 - 2023</span>
+                            <h4>[Previous Lab Name] - [Institution]</h4>
+                            <p class="lab-role">Undergraduate Researcher</p>
+                            <p class="lab-description">
+                                Description of your previous research experience and the 
+                                skills you developed during this time.
+                            </p>
+                            <ul class="lab-achievements">
+                                <li>Achievement or contribution 1</li>
+                                <li>Achievement or contribution 2</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications/Projects -->
+            <div class="publications">
+                <h3 class="subsection-title">Publications & Projects</h3>
+                <div class="publications-list">
+                    <div class="publication-item">
+                        <div class="publication-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="publication-content">
+                            <h4>Publication Title or Project Name</h4>
+                            <p class="publication-authors">Authors (Year)</p>
+                            <p class="publication-description">
+                                Brief description of the publication or project and its significance.
+                            </p>
+                            <a href="#" class="publication-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Publication
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="publication-content">
+                            <h4>Another Publication or Project</h4>
+                            <p class="publication-authors">Authors (Year)</p>
+                            <p class="publication-description">
+                                Brief description of this work and your contribution to it.
+                            </p>
+                            <a href="#" class="publication-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                View Publication
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         PORTFOLIO SECTION
+         =================================== -->
+    <section id="portfolio" class="portfolio section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">My Work</span>
+                <h2 class="section-title">Portfolio</h2>
+                <div class="title-underline"></div>
+                <p class="section-description">
+                    A collection of my research projects, hobbies, and creative endeavors.
+                </p>
+            </div>
+
+            <!-- Portfolio Filter Tabs -->
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">
+                    All
+                </button>
+                <button class="filter-btn" data-filter="research">
+                    Research
+                </button>
+                <button class="filter-btn" data-filter="projects">
+                    Projects
+                </button>
+                <button class="filter-btn" data-filter="hobbies">
+                    Hobbies
+                </button>
+            </div>
+
+            <!-- Portfolio Grid -->
             <div class="portfolio-grid">
-                <!-- Portfolio Item 1 - Large -->
-                <div class="portfolio-item large">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item" data-category="research">
+                    <div class="portfolio-image">
+                        <img src="images/research1.jpg" 
+                             alt="Research Project 1"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">Web Design</span>
-                                <h3 class="portfolio-title">E-Commerce Platform</h3>
-                                <p class="portfolio-desc">Modern shopping experience</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Research Project Title</h3>
+                                <p>Brief description of the research</p>
+                                <button class="view-btn" onclick="openModal(0)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Research</span>
+                        <h4>Research Project Name</h4>
                     </div>
                 </div>
 
                 <!-- Portfolio Item 2 -->
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="portfolio-item" data-category="projects">
+                    <div class="portfolio-image">
+                        <img src="images/project1.jpg" 
+                             alt="Development Project"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EDevelopment Project%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">Mobile App</span>
-                                <h3 class="portfolio-title">Fitness Tracker</h3>
-                                <p class="portfolio-desc">Health & wellness app</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Development Project</h3>
+                                <p>Software or technical project</p>
+                                <button class="view-btn" onclick="openModal(1)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Project</span>
+                        <h4>Project Name</h4>
                     </div>
                 </div>
 
                 <!-- Portfolio Item 3 -->
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="portfolio-item" data-category="hobbies">
+                    <div class="portfolio-image">
+                        <img src="images/hobby1.jpg" 
+                             alt="Hobby Project"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e76f51\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EHobby Project%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">Branding</span>
-                                <h3 class="portfolio-title">Tech Startup</h3>
-                                <p class="portfolio-desc">Complete brand identity</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Photography Collection</h3>
+                                <p>My photography work</p>
+                                <button class="view-btn" onclick="openModal(2)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
                     </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Hobby</span>
+                        <h4>Hobby Activity</h4>
+                    </div>
                 </div>
 
-                <!-- Portfolio Item 4 - Wide -->
-                <div class="portfolio-item wide">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                <!-- Portfolio Item 4 -->
+                <div class="portfolio-item" data-category="research">
+                    <div class="portfolio-image">
+                        <img src="images/research2.jpg" 
+                             alt="Research Project 2"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project 2%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">Web Application</span>
-                                <h3 class="portfolio-title">SaaS Dashboard</h3>
-                                <p class="portfolio-desc">Analytics & reporting platform</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Another Research Project</h3>
+                                <p>Additional research work</p>
+                                <button class="view-btn" onclick="openModal(3)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Research</span>
+                        <h4>Research Project 2</h4>
                     </div>
                 </div>
 
                 <!-- Portfolio Item 5 -->
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <div class="portfolio-item" data-category="projects">
+                    <div class="portfolio-image">
+                        <img src="images/project2.jpg" 
+                             alt="Project 2"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EProject 2%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">UI/UX</span>
-                                <h3 class="portfolio-title">Restaurant App</h3>
-                                <p class="portfolio-desc">Food delivery service</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Another Project</h3>
+                                <p>Technical achievement</p>
+                                <button class="view-btn" onclick="openModal(4)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Project</span>
+                        <h4>Project Name 2</h4>
                     </div>
                 </div>
 
                 <!-- Portfolio Item 6 -->
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                <div class="portfolio-item" data-category="hobbies">
+                    <div class="portfolio-image">
+                        <img src="images/hobby2.jpg" 
+                             alt="Hobby 2"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e76f51\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EHobby 2%3C/text%3E%3C/svg%3E'">
                         <div class="portfolio-overlay">
-                            <div class="portfolio-content">
-                                <span class="portfolio-category">Website</span>
-                                <h3 class="portfolio-title">Creative Agency</h3>
-                                <p class="portfolio-desc">Portfolio showcase</p>
-                                <button class="portfolio-btn">View Project →</button>
+                            <div class="overlay-content">
+                                <h3>Creative Work</h3>
+                                <p>Personal creative project</p>
+                                <button class="view-btn" onclick="openModal(5)">
+                                    <i class="fas fa-eye"></i>
+                                    View Details
+                                </button>
                             </div>
                         </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-category">Hobby</span>
+                        <h4>Creative Hobby</h4>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section with Slider -->
-    <section class="testimonials-section">
+    <!-- Portfolio Modal -->
+    <div id="portfolioModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Portfolio Item">
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <span id="modalCategory" class="portfolio-category"></span>
+                    <p id="modalDescription"></p>
+                    <div id="modalTags" class="modal-tags"></div>
+                    <a id="modalLink" href="#" class="btn btn-primary" target="_blank" style="display:none;">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================
+         LINKEDIN INTEGRATION SECTION
+         =================================== -->
+    <section id="linkedin" class="linkedin section section-alt">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Testimonials</div>
-                <h2 class="section-title">What Clients Say</h2>
+                <span class="section-label">Professional Network</span>
+                <h2 class="section-title">Let's Connect on LinkedIn</h2>
+                <div class="title-underline"></div>
             </div>
 
-            <div class="testimonials-slider">
-                <div class="testimonial-track" id="testimonialTrack">
-                    <!-- Testimonial 1 -->
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">
-                            "Outstanding work! They transformed our vision into a stunning reality. The attention to detail and commitment to excellence is unmatched."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">JD</div>
-                            <div class="author-info">
-                                <h4>John Doe</h4>
-                                <p>CEO, TechCorp</p>
-                            </div>
+            <div class="linkedin-card">
+                <div class="linkedin-content">
+                    <div class="linkedin-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>Connect With Me Professionally</h3>
+                    <p>
+                        I'm always interested in connecting with fellow researchers, professionals, 
+                        and collaborators. Let's expand our professional network and explore 
+                        opportunities for collaboration.
+                    </p>
+                    <div class="linkedin-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>Networking</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Collaboration</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-comments"></i>
+                            <span>Discussion</span>
                         </div>
                     </div>
-
-                    <!-- Testimonial 2 -->
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">
-                            "The team's creativity and technical expertise exceeded our expectations. Our new website has dramatically increased engagement."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">SM</div>
-                            <div class="author-info">
-                                <h4>Sarah Miller</h4>
-                                <p>Marketing Director, BrandCo</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 3 -->
-                    <div class="testimonial-card">
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">
-                            "Professional, responsive, and incredibly talented. They delivered exactly what we needed, on time and within budget."
-                        </p>
-                        <div class="testimonial-author">
-                            <div class="author-avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">MJ</div>
-                            <div class="author-info">
-                                <h4>Michael Johnson</h4>
-                                <p>Founder, StartupX</p>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="https://www.linkedin.com/in/truman-gilliam/" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn btn-linkedin">
+                        <i class="fab fa-linkedin"></i>
+                        Visit My LinkedIn Profile
+                    </a>
                 </div>
-
-                <!-- Slider controls -->
-                <div class="slider-controls">
-                    <button class="slider-btn prev" onclick="slideTestimonial(-1)">←</button>
-                    <div class="slider-dots" id="sliderDots"></div>
-                    <button class="slider-btn next" onclick="slideTestimonial(1)">→</button>
+                <div class="linkedin-visual">
+                    <div class="linkedin-badge">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section with Split Design -->
-    <section id="contact" class="contact-section">
+    <!-- ===================================
+         CONTACT SECTION
+         =================================== -->
+    <section id="contact" class="contact section">
         <div class="container">
-            <div class="contact-grid">
-                <!-- Left side: Contact info -->
+            <div class="section-header">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Contact Information</h2>
+                <div class="title-underline"></div>
+                <p class="section-description">
+                    Feel free to reach out for collaborations, research inquiries, or just to connect.
+                </p>
+            </div>
+
+            <div class="contact-wrapper">
+                <!-- Contact Information Cards -->
                 <div class="contact-info">
-                    <div class="section-label">Get In Touch</div>
-                    <h2 class="section-title">Let's Create Something Amazing Together</h2>
-                    <p class="contact-description">
-                        Have a project in mind? We'd love to hear about it. Drop us a message and we'll get back to you within 24 hours.
-                    </p>
-
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">📧</div>
-                            <div class="method-info">
-                                <h4>Email Us</h4>
-                                <a href="mailto:hello@nexus.com">hello@nexus.com</a>
-                            </div>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
                         </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">📞</div>
-                            <div class="method-info">
-                                <h4>Call Us</h4>
-                                <a href="tel:+1234567890">+1 (234) 567-890</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">📍</div>
-                            <div class="method-info">
-                                <h4>Visit Us</h4>
-                                <p>123 Design Street, Creative City, CC 12345</p>
-                            </div>
-                        </div>
+                        <h3>Email</h3>
+                        <p>your.email@example.com</p>
+                        <a href="mailto:your.email@example.com" class="info-link">Send Email</a>
                     </div>
 
-                    <!-- Social media links -->
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <span>GitHub</span>
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Location</h3>
+                        <p>City, State</p>
+                        <p>Country</p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <h3>LinkedIn</h3>
+                        <p>Truman Gilliam</p>
+                        <a href="https://www.linkedin.com/in/truman-gilliam/" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="info-link">
+                            Connect
                         </a>
-                        <a href="#" class="social-link">
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <span>Twitter</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <span>Instagram</span>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <p>@trumangilliam</p>
+                        <a href="https://github.com/trumangilliam" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           class="info-link">
+                            View Profile
                         </a>
                     </div>
                 </div>
 
-                <!-- Right side: Contact form -->
+                <!-- Contact Form -->
                 <div class="contact-form-wrapper">
                     <form class="contact-form" id="contactForm">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="firstName">First Name</label>
-                                <input type="text" id="firstName" name="firstName" required>
+                                <label for="firstName">
+                                    <i class="fas fa-user"></i>
+                                    First Name
+                                </label>
+                                <input type="text" 
+                                       id="firstName" 
+                                       name="firstName" 
+                                       required 
+                                       placeholder="Enter your first name">
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" required>
+                                <label for="lastName">
+                                    <i class="fas fa-user"></i>
+                                    Last Name
+                                </label>
+                                <input type="text" 
+                                       id="lastName" 
+                                       name="lastName" 
+                                       required 
+                                       placeholder="Enter your last name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
+                            <label for="email">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   required 
+                                   placeholder="your.email@example.com">
                         </div>
 
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
+                            <label for="subject">
+                                <i class="fas fa-tag"></i>
+                                Subject
+                            </label>
+                            <input type="text" 
+                                   id="subject" 
+                                   name="subject" 
+                                   required 
+                                   placeholder="What is this about?">
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">
+                                <i class="fas fa-comment"></i>
+                                Message
+                            </label>
+                            <textarea id="message" 
+                                      name="message" 
+                                      rows="5" 
+                                      required 
+                                      placeholder="Your message here..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn-submit">
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-paper-plane"></i>
                             Send Message
-                            <span class="btn-arrow">→</span>
                         </button>
                     </form>
                 </div>
@@ -577,76 +748,67 @@
         </div>
     </section>
 
-    <!-- Footer with Wave Design -->
+    <!-- ===================================
+         FOOTER
+         =================================== -->
     <footer class="footer">
-        <div class="footer-wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-            </svg>
-        </div>
-
-        <div class="footer-content">
-            <div class="container">
-                <div class="footer-grid">
-                    <!-- Company info -->
-                    <div class="footer-column">
-                        <div class="footer-logo">
-                            <span class="logo-icon">⚡</span>
-                            <span class="logo-text">NEXUS</span>
-                        </div>
-                        <p class="footer-description">
-                            Creating digital experiences that inspire, engage, and deliver results. Your success is our mission.
-                        </p>
-                    </div>
-
-                    <!-- Quick links -->
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Quick Links</h4>
-                        <ul class="footer-links">
-                            <li><a href="#about">About Us</a></li>
-                            <li><a href="#services">Services</a></li>
-                            <li><a href="#portfolio">Portfolio</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Services -->
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Services</h4>
-                        <ul class="footer-links">
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">UI/UX Design</a></li>
-                            <li><a href="#">Mobile Apps</a></li>
-                            <li><a href="#">Digital Marketing</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- Newsletter -->
-                    <div class="footer-column">
-                        <h4 class="footer-heading">Newsletter</h4>
-                        <p class="footer-newsletter-text">Subscribe to get updates on our latest projects and offers.</p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Your email" required>
-                            <button type="submit">→</button>
-                        </form>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Truman Gilliam</h3>
+                    <p>Researcher | Developer | Innovator</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/truman-gilliam/" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/trumangilliam" 
+                           target="_blank" 
+                           rel="noopener noreferrer" 
+                           aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:your.email@example.com" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="footer-bottom">
-                    <p>&copy; 2024 NEXUS. All rights reserved.</p>
-                    <div class="footer-bottom-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                    </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
                 </div>
+
+                <div class="footer-section">
+                    <h4>Research Areas</h4>
+                    <ul>
+                        <li>Interest Area 1</li>
+                        <li>Interest Area 2</li>
+                        <li>Interest Area 3</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Truman Gilliam. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to top button -->
-    <button class="back-to-top" id="backToTop">↑</button>
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
