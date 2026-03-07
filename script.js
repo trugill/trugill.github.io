@@ -1,7 +1,7 @@
 /* ===================================
    PORTFOLIO DATA FOR MODAL
    =================================== */
-const portfolioData = [
+   const portfolioData = [
     {
         title: "Research Project Title",
         category: "Research",
@@ -318,12 +318,19 @@ if (contactForm) {
  * @param {string} message - Message to display
  */
 function showNotification(type, message) {
+    // Remove any existing notifications first
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notif => notif.remove());
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
         <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
         <span>${message}</span>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
     `;
     
     // Style notification
@@ -331,36 +338,47 @@ function showNotification(type, message) {
         position: 'fixed',
         top: '100px',
         right: '30px',
-        padding: '1rem 1.5rem',
+        padding: '1.25rem 1.5rem',
+        paddingRight: '3rem',
         background: type === 'success' ? '#22c55e' : '#ef4444',
         color: 'white',
         borderRadius: '12px',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
         zIndex: '10000',
         display: 'flex',
         alignItems: 'center',
         gap: '0.75rem',
-        animation: 'slideInRight 0.3s ease',
+        animation: 'slideInRight 0.4s ease',
         fontSize: '1rem',
         fontWeight: '500',
-        maxWidth: '400px'
+        maxWidth: '400px',
+        minWidth: '300px'
     });
     
     document.body.appendChild(notification);
     
-    // Remove notification after 5 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 5000);
+    // Auto-remove after 8 seconds (increased from 5)
+    const autoRemoveTimeout = setTimeout(() => {
+        if (notification.parentElement) {
+            notification.style.animation = 'slideOutRight 0.4s ease';
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 400);
+        }
+    }, 8000);
+    
+    // Store timeout reference so we can clear it if user manually closes
+    notification.dataset.timeoutId = autoRemoveTimeout;
 }
 
-// Add notification animations to stylesheet
+// Add notification animations and styles to stylesheet
 const notificationStyles = document.createElement('style');
 notificationStyles.textContent = `
     @keyframes slideInRight {
         from {
-            transform: translateX(400px);
+            transform: translateX(500px);
             opacity: 0;
         }
         to {
@@ -375,8 +393,44 @@ notificationStyles.textContent = `
             opacity: 1;
         }
         to {
-            transform: translateX(400px);
+            transform: translateX(500px);
             opacity: 0;
+        }
+    }
+    
+    .notification-close {
+        position: absolute;
+        top: 50%;
+        right: 0.75rem;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .notification-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-50%) scale(1.1);
+    }
+    
+    .notification {
+        position: relative;
+    }
+    
+    @media (max-width: 768px) {
+        .notification {
+            right: 15px !important;
+            left: 15px !important;
+            max-width: calc(100% - 30px) !important;
+            min-width: unset !important;
         }
     }
 `;
@@ -420,7 +474,7 @@ if (backToTopBtn) {
    =================================== */
 
 /**
- * Animate elements when they come into view
+ * Animate elements when they come into view - FIXED VERSION
  */
 function setupScrollAnimations() {
     const observerOptions = {
@@ -431,8 +485,9 @@ function setupScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
+                // Add visible class instead of manipulating styles directly
+                entry.target.classList.add('animate-in');
+                // Don't unobserve - let CSS handle the animation
             }
         });
     }, observerOptions);
@@ -449,9 +504,8 @@ function setupScrollAnimations() {
     `);
     
     animatableElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        // Add initial state class
+        el.classList.add('animate-ready');
         observer.observe(el);
     });
 }
@@ -488,33 +542,6 @@ function setupSmoothScroll() {
 }
 
 /* ===================================
-   TYPING EFFECT FOR HERO SECTION
-   =================================== */
-
-/**
- * Create typing effect for hero subtitle
- */
-function setupTypingEffect() {
-    const subtitleElement = document.querySelector('.hero-subtitle');
-    if (!subtitleElement) return;
-    
-    const text = subtitleElement.textContent;
-    subtitleElement.textContent = '';
-    let index = 0;
-    
-    function type() {
-        if (index < text.length) {
-            subtitleElement.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, 100);
-        }
-    }
-    
-    // Start typing after hero animation
-    setTimeout(type, 1000);
-}
-
-/* ===================================
    FORM VALIDATION
    =================================== */
 
@@ -522,6 +549,8 @@ function setupTypingEffect() {
  * Real-time form validation
  */
 function setupFormValidation() {
+    if (!contactForm) return;
+    
     const inputs = contactForm.querySelectorAll('input, textarea');
     
     inputs.forEach(input => {
@@ -605,49 +634,6 @@ function removeErrorMessage(field) {
 }
 
 /* ===================================
-   LAZY LOADING IMAGES
-   =================================== */
-
-/**
- * Setup lazy loading for images
- */
-function setupLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
-
-/* ===================================
-   PRELOADER
-   =================================== */
-
-/**
- * Show/hide page preloader
- */
-function setupPreloader() {
-    window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }
-    });
-}
-
-/* ===================================
    PERFORMANCE OPTIMIZATION
    =================================== */
 
@@ -678,31 +664,6 @@ const debouncedScrollHandler = debounce(() => {
 window.addEventListener('scroll', debouncedScrollHandler);
 
 /* ===================================
-   STATISTICS COUNTER ANIMATION
-   =================================== */
-
-/**
- * Animate counting numbers (useful for stats sections)
- * @param {HTMLElement} element - Element containing number
- * @param {number} target - Target number
- * @param {number} duration - Animation duration in ms
- */
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    const counter = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(counter);
-        } else {
-            element.textContent = Math.floor(start);
-        }
-    }, 16);
-}
-
-/* ===================================
    INITIALIZE ALL FUNCTIONS
    =================================== */
 
@@ -719,11 +680,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSmoothScroll();
     setupScrollAnimations();
     setupFormValidation();
-    setupLazyLoading();
-    setupPreloader();
-    
-    // Optional: Uncomment if you want typing effect
-    // setupTypingEffect();
     
     // Set initial active nav link
     setActiveNavLink();
@@ -738,7 +694,6 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 window.addEventListener('error', (e) => {
     console.error('An error occurred:', e.error);
-    // You can add user-friendly error notifications here
 });
 
 /**
@@ -746,51 +701,4 @@ window.addEventListener('error', (e) => {
  */
 window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
-    // You can add user-friendly error notifications here
 });
-
-/* ===================================
-   UTILITY FUNCTIONS
-   =================================== */
-
-/**
- * Get element offset from top of document
- * @param {HTMLElement} element - Target element
- * @returns {number} Offset in pixels
- */
-function getOffset(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.top + window.pageYOffset;
-}
-
-/**
- * Check if element is in viewport
- * @param {HTMLElement} element - Target element
- * @returns {boolean} True if in viewport
- */
-function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-/**
- * Format date to readable string
- * @param {Date} date - Date object
- * @returns {string} Formatted date string
- */
-function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-}
-
-/* ===================================
-   EXPORT FUNCTIONS (for potential use in other files)
-   =================================== */
-
-// If using modules, you can export functions:
-// export { openModal, closeModal, showNotification };
