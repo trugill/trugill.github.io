@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A showcase website demonstrating various web features">
+    <title>Website Feature Showcase</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">My Showcase</h1>
+            <!-- Navigation menu with smooth scroll links -->
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <!-- Mobile menu toggle button -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 class="fade-in">Welcome to My Website</h2>
+            <p class="fade-in-delay">Exploring modern web features with clean, commented code</p>
+            <!-- Call-to-action button -->
+            <button class="cta-button" onclick="scrollToSection('features')">Explore Features</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Amazing Features</h2>
+            
+            <!-- Feature cards grid -->
+            <div class="feature-grid">
+                <!-- Feature Card 1: Responsive Design -->
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Looks great on all devices - mobile, tablet, and desktop</p>
+                </div>
+
+                <!-- Feature Card 2: Interactive Elements -->
+                <div class="feature-card">
+                    <div class="icon">✨</div>
+                    <h3>Interactive Elements</h3>
+                    <p>Engaging animations and user interactions</p>
+                </div>
+
+                <!-- Feature Card 3: Modern CSS -->
+                <div class="feature-card">
+                    <div class="icon">🎨</div>
+                    <h3>Modern CSS</h3>
+                    <p>Flexbox, Grid, and CSS animations</p>
+                </div>
+
+                <!-- Feature Card 4: JavaScript Functions -->
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>JavaScript Powered</h3>
+                    <p>Dynamic content and functionality</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section class="demo-section">
+        <div class="container">
+            <h2 class="section-title">Interactive Demo</h2>
+            
+            <!-- Counter demonstration -->
+            <div class="demo-box">
+                <h3>Click Counter</h3>
+                <p>Count: <span id="counter">0</span></p>
+                <button class="demo-button" onclick="incrementCounter()">Click Me!</button>
+                <button class="demo-button reset" onclick="resetCounter()">Reset</button>
+            </div>
+
+            <!-- Color changer demonstration -->
+            <div class="demo-box">
+                <h3>Background Color Changer</h3>
+                <div id="color-box" class="color-display"></div>
+                <button class="demo-button" onclick="changeColor()">Change Color</button>
+            </div>
+
+            <!-- Form validation demonstration -->
+            <div class="demo-box">
+                <h3>Simple Form Validation</h3>
+                <form id="demo-form" onsubmit="return validateForm(event)">
+                    <input type="text" id="username" placeholder="Enter your name" required>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <button type="submit" class="demo-button">Submit</button>
+                </form>
+                <p id="form-message"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Image Gallery</h2>
+            
+            <!-- Image gallery grid with placeholder images -->
+            <div class="gallery-grid">
+                <div class="gallery-item" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="gallery-overlay">Image 1</div>
+                </div>
+                <div class="gallery-item" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="gallery-overlay">Image 2</div>
+                </div>
+                <div class="gallery-item" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="gallery-overlay">Image 3</div>
+                </div>
+                <div class="gallery-item" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <div class="gallery-overlay">Image 4</div>
+                </div>
+                <div class="gallery-item" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <div class="gallery-overlay">Image 5</div>
+                </div>
+                <div class="gallery-item" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                    <div class="gallery-overlay">Image 6</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <!-- Contact form -->
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Website Showcase. Created for learning purposes.</p>
+            <div class="social-links">
+                <a href="#" aria-label="GitHub">GitHub</a>
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="#" aria-label="Twitter">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
