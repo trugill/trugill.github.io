@@ -962,27 +962,81 @@ a:hover {
   box-shadow: var(--shadow-orange);
 }
 
+/* Swipe viewport — overflow only clipped during animation (toggled by JS) */
+.portfolio-viewport {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 2rem;
+}
+.portfolio-viewport.is-animating {
+  overflow: hidden;
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
+  transition: none;
 }
 
+/* Items hidden by default; JS controls visibility */
 .portfolio-item {
   border-radius: 20px;
   overflow: hidden;
   background: var(--white);
   box-shadow: var(--shadow-lg);
-  transition: var(--transition);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.portfolio-item.hide {
+.portfolio-item.pf-hidden {
   display: none;
 }
 
-.portfolio-item:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-xl);
+/* Instagram's embed.js injects an iframe that ignores display:none on the parent,
+   so we use visibility + zero dimensions to fully suppress it */
+.instagram-embed-card.pf-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.instagram-embed-card.pf-hidden * {
+  display: none !important;
+}
+
+/* Swipe-out: current slides off left or right */
+.portfolio-grid.swipe-out-left {
+  animation: swipeOutLeft 0.35s ease forwards;
+}
+.portfolio-grid.swipe-out-right {
+  animation: swipeOutRight 0.35s ease forwards;
+}
+
+/* Swipe-in: incoming slides from the opposite side */
+.portfolio-grid.swipe-in-left {
+  animation: swipeInLeft 0.35s ease forwards;
+}
+.portfolio-grid.swipe-in-right {
+  animation: swipeInRight 0.35s ease forwards;
+}
+
+@keyframes swipeOutLeft {
+  from { transform: translateX(0);     opacity: 1; }
+  to   { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes swipeOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+@keyframes swipeInLeft {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes swipeInRight {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
 .portfolio-image {
@@ -2742,3 +2796,172 @@ a:hover {
 .easter-egg-btn.egg-flop1 { animation: egg-flop1 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
 .easter-egg-btn.egg-flop2 { animation: egg-flop2 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
 .easter-egg-btn.egg-flop3 { animation: egg-flop3 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+
+/* Extra bottom padding so card shadows aren't clipped by next section */
+#portfolio {
+  padding-bottom: 6rem;
+}
+
+/* ===================================
+   INSTAGRAM EMBED CARD (Art Section)
+   =================================== */
+
+.instagram-embed-card {
+  grid-column: 1 / -1; /* spans full grid width */
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid rgba(193, 53, 132, 0.15);
+}
+
+.instagram-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--light-gray);
+  background: linear-gradient(135deg, rgba(193,53,132,0.05), rgba(255,140,66,0.05));
+}
+
+.instagram-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.instagram-profile-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.instagram-handle {
+  font-weight: 700;
+  color: var(--dark-blue);
+  font-size: 1rem;
+}
+
+.instagram-subtext {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.instagram-follow-btn {
+  padding: 0.4rem 1.2rem;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366);
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.instagram-follow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.35);
+  color: white;
+}
+
+.instagram-feed-area {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instagram-feed-area .instagram-media {
+  margin: 0 auto !important;
+}
+
+.instagram-placeholder {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.instagram-placeholder i {
+  font-size: 4rem;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.instagram-placeholder p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.instagram-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--light-gray);
+  background: var(--light-gray);
+  display: flex;
+  justify-content: center;
+}
+
+.instagram-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #cc2366;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.instagram-view-all:hover {
+  gap: 0.75rem;
+  color: #bc1888;
+}
+
+.instagram-view-all i:first-child {
+  font-size: 1.1rem;
+}
+
+/* ===================================
+   ORCID & RESEARCHGATE ICON STYLES
+   =================================== */
+
+/* ORCID green in info-card icon box */
+.orcid-icon {
+  background: #a6ce39 !important;
+}
+
+.researchgate-icon {
+  background: #00ccbb !important;
+}
+
+/* Size academicons to match Font Awesome in hero social circles */
+.hero-social a .ai,
+.footer-social a .ai {
+  font-size: 1.2rem;
+}
+
+/* ORCID hover colour in hero/footer */
+.hero-social a:has(.ai-orcid):hover,
+.footer-social a:has(.ai-orcid):hover {
+  background: #a6ce39 !important;
+  color: white !important;
+}
+
+/* ResearchGate hover colour in hero/footer */
+.hero-social a:has(.fa-researchgate):hover,
+.footer-social a:has(.fa-researchgate):hover {
+  background: #00ccbb !important;
+  color: white !important;
+}
