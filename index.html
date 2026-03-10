@@ -15,6 +15,7 @@
     
     <!-- Font Awesome for icons - DO NOT EDIT -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
     
     <!-- Custom CSS - DO NOT EDIT -->
     <link rel="stylesheet" href="styles.css">
@@ -120,6 +121,18 @@
                        rel="noopener noreferrer" 
                        aria-label="GitHub Profile">
                         <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.researchgate.net/profile/Truman-Gilliam"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="ResearchGate Profile">
+                        <i class="fab fa-researchgate"></i>
+                    </a>
+                    <a href="https://orcid.org/0009-0009-4809-5479"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="ORCID Profile">
+                        <i class="ai ai-orcid"></i>
                     </a>
                     <!-- EDIT: Change to your email address -->
                     <a href="/cdn-cgi/l/email-protection#3642515f5a5a5f575b0406060276515b575f5a1855595b" aria-label="Email">
@@ -513,12 +526,11 @@
                                 Currently in preparation (project about warthogs)
                             </p>
                             
-                            <!-- EDIT: Add link to publication (or remove if no link) -->
+                            <!-- EDIT: Replace href="#" with your publication URL, or remove this <a> if not yet published -->
                             <a href="#" class="publication-link" target="_blank">
                                 <i class="fas fa-external-link-alt"></i>
                                 View Publication
                             </a>
-                            <!-- To remove link, delete the entire <a> tag above -->
                         </div>
                     </div>
 
@@ -536,7 +548,7 @@
                             <p class="publication-description">
                                 Currently in submission (project about frogs)
                             </p>
-                            <!-- EDIT: Add link -->
+                            <!-- EDIT: Replace href="#" with your publication URL, or remove this <a> if not yet published -->
                             <a href="#" class="publication-link" target="_blank">
                                 <i class="fas fa-external-link-alt"></i>
                                 View Publication
@@ -569,191 +581,156 @@
 
             <!-- Portfolio Filter Tabs -->
             <div class="portfolio-filters">
-                <!-- EDIT: You can change filter button text -->
-                <!-- Make sure data-filter value matches data-category in items below -->
-                <button class="filter-btn active" data-filter="all">
-                    All
-                </button>
-                <button class="filter-btn" data-filter="research">
-                    Research
-                </button>
-                <button class="filter-btn" data-filter="projects">
-                    Projects
-                </button>
-                <button class="filter-btn" data-filter="hobbies">
-                    Hobbies
-                </button>
-                <!-- OPTIONAL: Add more filter categories
-                <button class="filter-btn" data-filter="awards">
-                    Awards
-                </button>
-                -->
+                <button class="filter-btn active" data-filter="gis" data-index="0">GIS Layouts</button>
+                <button class="filter-btn" data-filter="research" data-index="1">Research</button>
+                <button class="filter-btn" data-filter="other" data-index="2">Other</button>
+                <button class="filter-btn" data-filter="art" data-index="3">Art</button>
             </div>
 
-            <!-- Portfolio Grid -->
-            <div class="portfolio-grid">
-                <!-- Portfolio Item 1 -->
-                <div class="portfolio-item" data-category="research">
-                    <!-- EDIT: data-category must match filter button data-filter value -->
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path to your project image -->
-                        <!-- Recommended size: 800x600px -->
-                        <img src="images/research1.jpg" 
-                             alt="Research Project 1"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change project title and description -->
-                                <h3>Research Project Title</h3>
-                                <p>Brief description of the research</p>
-                                <!-- DO NOT EDIT: onclick number should match item position (0, 1, 2, etc.) -->
-                                <button class="view-btn" onclick="openModal(0)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+            <!-- Portfolio Swipe Viewport -->
+            <div class="portfolio-viewport">
+                <div class="portfolio-grid" id="portfolioGrid">
+                    <!-- Portfolio Item 1 — EDIT: change data-category to: research | gis | other | art -->
+                    <div class="portfolio-item" data-category="research">
+                        <div class="portfolio-image">
+                            <img src="images/research1.jpg" 
+                                 alt="Research Project 1"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project%3C/text%3E%3C/svg%3E'">
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <h3>Research Project Title</h3>
+                                    <p>Brief description of the research</p>
+                                    <button class="view-btn" onclick="openModal(0)">
+                                        <i class="fas fa-eye"></i>View Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Research</span>
+                            <h4>Research Project Name</h4>
+                        </div>
                     </div>
-                    <div class="portfolio-info">
-                        <!-- EDIT: Change category label (should match data-category) -->
-                        <span class="portfolio-category">Research</span>
-                        <!-- EDIT: Change project name -->
-                        <h4>Research Project Name</h4>
-                    </div>
-                </div>
 
-                <!-- Portfolio Item 2 -->
-                <div class="portfolio-item" data-category="projects">
-                    <!-- EDIT: Change data-category to match filter -->
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path -->
-                        <img src="images/project1.jpg" 
-                             alt="Development Project"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EDevelopment Project%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change title and description -->
-                                <h3>Development Project</h3>
-                                <p>Software or technical project</p>
-                                <!-- Note: Second item = onclick="openModal(1)" -->
-                                <button class="view-btn" onclick="openModal(1)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+                    <!-- Portfolio Item 2 -->
+                    <div class="portfolio-item" data-category="gis">
+                        <div class="portfolio-image">
+                            <img src="images/project1.jpg" 
+                                 alt="GIS Layout 1"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EGIS Layout%3C/text%3E%3C/svg%3E'">
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <h3>GIS Layout 1</h3>
+                                    <p>Spatial data visualization</p>
+                                    <button class="view-btn" onclick="openModal(1)">
+                                        <i class="fas fa-eye"></i>View Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">GIS Layouts</span>
+                            <h4>GIS Layout Name</h4>
+                        </div>
                     </div>
-                    <div class="portfolio-info">
-                        <!-- EDIT: Change category and name -->
-                        <span class="portfolio-category">Project</span>
-                        <h4>Project Name</h4>
-                    </div>
-                </div>
 
-                <!-- Portfolio Item 3 -->
-                <div class="portfolio-item" data-category="hobbies">
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path -->
-                        <img src="images/hobby1.jpg" 
-                             alt="Hobby Project"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e76f51\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EHobby Project%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change title and description -->
-                                <h3>Photography Collection</h3>
-                                <p>My photography work</p>
-                                <!-- Note: Third item = onclick="openModal(2)" -->
-                                <button class="view-btn" onclick="openModal(2)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+                    <!-- Portfolio Item 3 -->
+                    <div class="portfolio-item" data-category="other">
+                        <div class="portfolio-image">
+                            <img src="images/hobby1.jpg" 
+                                 alt="Other Project 1"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e76f51\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EOther Project%3C/text%3E%3C/svg%3E'">
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <h3>Other Project</h3>
+                                    <p>Description here</p>
+                                    <button class="view-btn" onclick="openModal(2)">
+                                        <i class="fas fa-eye"></i>View Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Other</span>
+                            <h4>Other Project Name</h4>
+                        </div>
                     </div>
-                    <div class="portfolio-info">
-                        <span class="portfolio-category">Hobby</span>
-                        <h4>Hobby Activity</h4>
-                    </div>
-                </div>
 
-                <!-- Portfolio Item 4 -->
-                <div class="portfolio-item" data-category="research">
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path -->
-                        <img src="images/research2.jpg" 
-                             alt="Research Project 2"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project 2%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change title and description -->
-                                <h3>Another Research Project</h3>
-                                <p>Additional research work</p>
-                                <button class="view-btn" onclick="openModal(3)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+                    <!-- Portfolio Item 4 -->
+                    <div class="portfolio-item" data-category="research">
+                        <div class="portfolio-image">
+                            <img src="images/research2.jpg" 
+                                 alt="Research Project 2"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ff8c42\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EResearch Project 2%3C/text%3E%3C/svg%3E'">
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <h3>Another Research Project</h3>
+                                    <p>Additional research work</p>
+                                    <button class="view-btn" onclick="openModal(3)">
+                                        <i class="fas fa-eye"></i>View Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">Research</span>
+                            <h4>Research Project 2</h4>
+                        </div>
                     </div>
-                    <div class="portfolio-info">
-                        <span class="portfolio-category">Research</span>
-                        <h4>Research Project 2</h4>
-                    </div>
-                </div>
 
-                <!-- Portfolio Item 5 -->
-                <div class="portfolio-item" data-category="projects">
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path -->
-                        <img src="images/project2.jpg" 
-                             alt="Project 2"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EProject 2%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change title and description -->
-                                <h3>Another Project</h3>
-                                <p>Technical achievement</p>
-                                <button class="view-btn" onclick="openModal(4)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+                    <!-- Portfolio Item 5 -->
+                    <div class="portfolio-item" data-category="gis">
+                        <div class="portfolio-image">
+                            <img src="images/project2.jpg" 
+                                 alt="GIS Layout 2"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23f4a261\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EGIS Layout 2%3C/text%3E%3C/svg%3E'">
+                            <div class="portfolio-overlay">
+                                <div class="overlay-content">
+                                    <h3>GIS Layout 2</h3>
+                                    <p>Another spatial visualization</p>
+                                    <button class="view-btn" onclick="openModal(4)">
+                                        <i class="fas fa-eye"></i>View Details
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <div class="portfolio-info">
+                            <span class="portfolio-category">GIS Layouts</span>
+                            <h4>GIS Layout Name 2</h4>
+                        </div>
                     </div>
-                    <div class="portfolio-info">
-                        <span class="portfolio-category">Project</span>
-                        <h4>Project Name 2</h4>
-                    </div>
-                </div>
 
-                <!-- Portfolio Item 6 -->
-                <div class="portfolio-item" data-category="hobbies">
-                    <div class="portfolio-image">
-                        <!-- EDIT: Change image path -->
-                        <img src="images/hobby2.jpg" 
-                             alt="Hobby 2"
-                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23e76f51\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EHobby 2%3C/text%3E%3C/svg%3E'">
-                        <div class="portfolio-overlay">
-                            <div class="overlay-content">
-                                <!-- EDIT: Change title and description -->
-                                <h3>Creative Work</h3>
-                                <p>Personal creative project</p>
-                                <button class="view-btn" onclick="openModal(5)">
-                                    <i class="fas fa-eye"></i>
-                                    View Details
-                                </button>
+                    <!-- Portfolio Item 6 -->
+                    <!-- Art Section: Instagram Embed -->
+                    <div class="instagram-embed-card" data-category="art">
+                        <div class="instagram-header">
+                            <div class="instagram-avatar">
+                                <i class="fab fa-instagram"></i>
                             </div>
+                            <div class="instagram-profile-info">
+                                <span class="instagram-handle">@trumans.art</span>
+                                <span class="instagram-subtext">Digital Art &amp; Creative Work</span>
+                            </div>
+                            <a href="https://www.instagram.com/trumans.art/" target="_blank" rel="noopener noreferrer" class="instagram-follow-btn">
+                                Follow
+                            </a>
+                        </div>
+                        <div class="instagram-feed-area" id="instagramFeed">
+                            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/trumans.art/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:calc(100% - 2px);"><div style="padding:16px;"><a href="https://www.instagram.com/trumans.art/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"><div style="display:flex; flex-direction:row; align-items:center;"><div style="background-color:#F4F4F4; border-radius:50%; flex-grow:0; height:40px; margin-right:14px; width:40px;"></div><div style="display:flex; flex-direction:column; flex-grow:1; justify-content:center;"><div style="background-color:#F4F4F4; border-radius:4px; flex-grow:0; height:14px; margin-bottom:6px; width:100px;"></div><div style="background-color:#F4F4F4; border-radius:4px; flex-grow:0; height:14px; width:60px;"></div></div></div><div style="padding:19% 0;"></div><div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top:8px;"><div style="color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this profile on Instagram</div></div><div style="padding:12.5% 0;"></div><div style="display:flex; flex-direction:row; margin-bottom:14px; align-items:center;"><div><div style="background-color:#F4F4F4; border-radius:50%; height:12.5px; width:12.5px; transform:translateX(0px) translateY(7px);"></div><div style="background-color:#F4F4F4; height:12.5px; transform:rotate(-45deg) translateX(3px) translateY(1px); width:12.5px; flex-grow:0; margin-right:14px; margin-left:2px;"></div><div style="background-color:#F4F4F4; border-radius:50%; height:12.5px; width:12.5px; transform:translateX(9px) translateY(-18px);"></div></div><div style="margin-left:8px;"><div style="background-color:#F4F4F4; border-radius:50%; flex-grow:0; height:20px; width:20px;"></div><div style="width:0; height:0; border-top:2px solid transparent; border-left:6px solid #f4f4f4; border-bottom:2px solid transparent; transform:translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left:auto;"><div style="width:0px; border-top:8px solid #F4F4F4; border-right:8px solid transparent; transform:translateY(16px);"></div><div style="background-color:#F4F4F4; flex-grow:0; height:12px; width:16px; transform:translateY(-4px);"></div><div style="width:0; height:0; border-top:8px solid #F4F4F4; border-left:8px solid transparent; transform:translateY(-4px) translateX(8px);"></div></div></div><div style="display:flex; flex-direction:column; flex-grow:1; justify-content:center; margin-bottom:24px;"><div style="background-color:#F4F4F4; border-radius:4px; flex-grow:0; height:14px; margin-bottom:6px; width:224px;"></div><div style="background-color:#F4F4F4; border-radius:4px; flex-grow:0; height:14px; width:144px;"></div></div></a><p style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/trumans.art/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank">Truman</a> (@<a href="https://www.instagram.com/trumans.art/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank">trumans.art</a>) • Instagram photos and videos</p></div></blockquote>
+                        </div>
+                        <div class="instagram-footer">
+                            <a href="https://www.instagram.com/trumans.art/" target="_blank" rel="noopener noreferrer" class="instagram-view-all">
+                                <i class="fab fa-instagram"></i>
+                                View full profile on Instagram
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="portfolio-info">
-                        <span class="portfolio-category">Hobby</span>
-                        <h4>Creative Hobby</h4>
-                    </div>
+
+                    <!-- OPTIONAL: Add more portfolio items by copying an item above -->
+                    <!-- Remember to increment the onclick="openModal(X)" number -->
+                    <!-- Also update the portfolioData array in script.js -->
                 </div>
-                
-                <!-- OPTIONAL: Add more portfolio items by copying an item above -->
-                <!-- Remember to increment the onclick="openModal(X)" number -->
-                <!-- Also update the portfolioData array in script.js -->
             </div>
         </div>
     </section>
@@ -772,10 +749,7 @@
                     <span id="modalCategory" class="portfolio-category"></span>
                     <p id="modalDescription"></p>
                     <div id="modalTags" class="modal-tags"></div>
-                    <a id="modalLink" href="#" class="btn btn-primary" target="_blank" style="display:none;">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
+
                 </div>
             </div>
         </div>
@@ -919,6 +893,38 @@
                     </a>
                 </div>
 
+                <!-- Contact Card: ResearchGate -->
+                <div class="info-card">
+                    <div class="info-icon researchgate-icon">
+                        <i class="fab fa-researchgate"></i>
+                    </div>
+                    <h3>ResearchGate</h3>
+                    <p>Truman Gilliam</p>
+                    <a href="https://www.researchgate.net/profile/Truman-Gilliam"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="info-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Profile
+                    </a>
+                </div>
+
+                <!-- Contact Card: ORCID -->
+                <div class="info-card">
+                    <div class="info-icon orcid-icon">
+                        <i class="ai ai-orcid"></i>
+                    </div>
+                    <h3>ORCID</h3>
+                    <p>0009-0009-4809-5479</p>
+                    <a href="https://orcid.org/0009-0009-4809-5479"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="info-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        View Profile
+                    </a>
+                </div>
+
                 <!-- Contact Card 5: Phone -->
                 <div class="info-card">
                     <div class="info-icon">
@@ -1003,6 +1009,18 @@
                            aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
+                        <a href="https://www.researchgate.net/profile/Truman-Gilliam"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="ResearchGate">
+                            <i class="fab fa-researchgate"></i>
+                        </a>
+                        <a href="https://orcid.org/0009-0009-4809-5479"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           aria-label="ORCID">
+                            <i class="ai ai-orcid"></i>
+                        </a>
                         <a href="/cdn-cgi/l/email-protection#e19586888d8d88808cd3d1d1d5a1868c80888dcf828e8c" aria-label="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
@@ -1054,6 +1072,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <script async src="//www.instagram.com/embed.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
