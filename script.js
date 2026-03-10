@@ -145,47 +145,82 @@ window.addEventListener('scroll', () => {
    PORTFOLIO FILTERING
    =================================== */
 
-const filterBtns = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
+/* ===================================
+   PORTFOLIO FILTERING — DIRECTIONAL SWIPE
+   =================================== */
 
-/**
- * Filter portfolio items by category
- * @param {string} category - The category to filter by
- */
-function filterPortfolio(category) {
-    portfolioItems.forEach(item => {
-        const itemCategory = item.getAttribute('data-category');
-        
-        if (category === 'all' || itemCategory === category) {
-            item.style.display = 'block';
-            // Add animation
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-            }, 100);
-        } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 300);
-        }
+// Category order determines swipe direction
+const CATEGORY_ORDER = ['gis', 'research', 'other', 'art'];
+let currentCategoryIndex = CATEGORY_ORDER.indexOf('gis'); // default: GIS
+let isAnimating = false;
+
+const portfolioGrid = document.getElementById('portfolioGrid');
+
+function showCategory(newFilter, newIndex) {
+  if (isAnimating || newIndex === currentCategoryIndex) return;
+  isAnimating = true;
+
+  const viewport    = document.querySelector('.portfolio-viewport');
+  const goingRight  = newIndex > currentCategoryIndex;
+  const outClass    = goingRight ? 'swipe-out-left'  : 'swipe-out-right';
+  const inClass     = goingRight ? 'swipe-in-left'   : 'swipe-in-right';
+
+  viewport.classList.add('is-animating');
+  portfolioGrid.classList.add(outClass);
+
+  portfolioGrid.addEventListener('animationend', function onOut() {
+    portfolioGrid.removeEventListener('animationend', onOut);
+    portfolioGrid.classList.remove(outClass);
+
+    document.querySelectorAll('.portfolio-item, .instagram-embed-card').forEach(item => {
+      item.classList.toggle('pf-hidden', item.dataset.category !== newFilter);
     });
+
+    // Re-trigger Instagram embed rendering when switching to Art
+    if (newFilter === 'art') {
+      setTimeout(reinitInstagram, 100);
+    }
+
+    currentCategoryIndex = newIndex;
+
+    portfolioGrid.classList.add(inClass);
+    portfolioGrid.addEventListener('animationend', function onIn() {
+      portfolioGrid.removeEventListener('animationend', onIn);
+      portfolioGrid.classList.remove(inClass);
+      viewport.classList.remove('is-animating');
+      isAnimating = false;
+    }, { once: true });
+
+  }, { once: true });
 }
 
-// Add click event listeners to filter buttons
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        // Filter portfolio items
-        const category = btn.getAttribute('data-filter');
-        filterPortfolio(category);
-    });
+// Initialise: show only GIS items on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.portfolio-item, .instagram-embed-card').forEach(item => {
+    if (item.dataset.category !== 'gis') item.classList.add('pf-hidden');
+  });
+});
+
+// Re-process Instagram embed when Art tab becomes visible
+function reinitInstagram() {
+  if (window.instgrm && window.instgrm.Embeds) {
+    window.instgrm.Embeds.process();
+  }
+}
+
+// Wire up filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('active')) return;
+
+    const newFilter = btn.dataset.filter;
+    const newIndex  = parseInt(btn.dataset.index, 10);
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    showCategory(newFilter, newIndex);
+  });
 });
 
 /* ===================================
@@ -198,23 +233,19 @@ const modalTitle = document.getElementById('modalTitle');
 const modalCategory = document.getElementById('modalCategory');
 const modalDescription = document.getElementById('modalDescription');
 const modalTags = document.getElementById('modalTags');
-const modalLink = document.getElementById('modalLink');
-
 /**
  * Open portfolio modal with item details
  * @param {number} index - Index of portfolio item in portfolioData array
  */
 function openModal(index) {
     const item = portfolioData[index];
-    
-    // Populate modal with data
+
     modalImage.src = item.image;
     modalImage.alt = item.title;
     modalTitle.textContent = item.title;
     modalCategory.textContent = item.category;
     modalDescription.textContent = item.description;
-    
-    // Add tags
+
     modalTags.innerHTML = '';
     item.tags.forEach(tag => {
         const tagElement = document.createElement('span');
@@ -222,16 +253,7 @@ function openModal(index) {
         tagElement.textContent = tag;
         modalTags.appendChild(tagElement);
     });
-    
-    // Show/hide link button
-    if (item.link) {
-        modalLink.href = item.link;
-        modalLink.style.display = 'inline-flex';
-    } else {
-        modalLink.style.display = 'none';
-    }
-    
-    // Show modal
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
