@@ -962,27 +962,81 @@ a:hover {
   box-shadow: var(--shadow-orange);
 }
 
+/* Swipe viewport — overflow only clipped during animation (toggled by JS) */
+.portfolio-viewport {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 2rem;
+}
+.portfolio-viewport.is-animating {
+  overflow: hidden;
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
+  transition: none;
 }
 
+/* Items hidden by default; JS controls visibility */
 .portfolio-item {
   border-radius: 20px;
   overflow: hidden;
   background: var(--white);
   box-shadow: var(--shadow-lg);
-  transition: var(--transition);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.portfolio-item.hide {
+.portfolio-item.pf-hidden {
   display: none;
 }
 
-.portfolio-item:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-xl);
+/* Instagram's embed.js injects an iframe that ignores display:none on the parent,
+   so we use visibility + zero dimensions to fully suppress it */
+.instagram-embed-card.pf-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.instagram-embed-card.pf-hidden * {
+  display: none !important;
+}
+
+/* Swipe-out: current slides off left or right */
+.portfolio-grid.swipe-out-left {
+  animation: swipeOutLeft 0.35s ease forwards;
+}
+.portfolio-grid.swipe-out-right {
+  animation: swipeOutRight 0.35s ease forwards;
+}
+
+/* Swipe-in: incoming slides from the opposite side */
+.portfolio-grid.swipe-in-left {
+  animation: swipeInLeft 0.35s ease forwards;
+}
+.portfolio-grid.swipe-in-right {
+  animation: swipeInRight 0.35s ease forwards;
+}
+
+@keyframes swipeOutLeft {
+  from { transform: translateX(0);     opacity: 1; }
+  to   { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes swipeOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+@keyframes swipeInLeft {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes swipeInRight {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
 .portfolio-image {
@@ -2670,4 +2724,580 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+/* ===================================
+   EASTER EGG BUTTON (FOOTER)
+   =================================== */
+
+.easter-egg-btn {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+}
+
+.easter-egg-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.footer {
+  transition: background-color 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes egg-flop1 {
+  0%   { transform: rotate(0deg) scale(1); }
+  15%  { transform: rotate(-20deg) scale(1.2) translateY(-14px); }
+  35%  { transform: rotate(16deg) scale(0.88) translateY(8px); }
+  55%  { transform: rotate(-10deg) scale(1.1) translateX(-12px); }
+  75%  { transform: rotate(6deg) scale(0.96) translateX(8px); }
+  90%  { transform: rotate(-3deg) scale(1.03); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes egg-flop2 {
+  0%   { transform: rotate(0deg) scale(1); }
+  10%  { transform: rotate(28deg) scale(1.25) translateY(-20px) translateX(10px); }
+  28%  { transform: rotate(-22deg) scale(0.82) translateY(14px) translateX(-12px); }
+  46%  { transform: rotate(17deg) scale(1.18) translateY(-10px); }
+  63%  { transform: rotate(-12deg) scale(0.9) translateX(16px); }
+  78%  { transform: rotate(7deg) scale(1.05) translateY(7px); }
+  90%  { transform: rotate(-3deg) scale(0.98); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes egg-flop3 {
+  0%   { transform: rotate(0deg) scale(1); }
+  8%   { transform: rotate(-35deg) scale(1.3) translateX(-20px) translateY(-20px); }
+  22%  { transform: rotate(26deg) scale(0.78) translateX(18px) translateY(18px); }
+  38%  { transform: rotate(-20deg) scale(1.22) translateY(-14px); }
+  52%  { transform: rotate(16deg) scale(0.88) translateX(-14px); }
+  66%  { transform: rotate(-10deg) scale(1.12) translateY(10px); }
+  80%  { transform: rotate(5deg) scale(0.95) translateX(8px); }
+  92%  { transform: rotate(-2deg) scale(1.02); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.easter-egg-btn.egg-flop1 { animation: egg-flop1 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+.easter-egg-btn.egg-flop2 { animation: egg-flop2 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+.easter-egg-btn.egg-flop3 { animation: egg-flop3 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+
+/* Extra bottom padding so card shadows aren't clipped by next section */
+#portfolio {
+  padding-bottom: 6rem;
+}
+
+/* ===================================
+   INSTAGRAM EMBED CARD (Art Section)
+   =================================== */
+
+.instagram-embed-card {
+  grid-column: 1 / -1; /* spans full grid width */
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid rgba(193, 53, 132, 0.15);
+}
+
+.instagram-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--light-gray);
+  background: linear-gradient(135deg, rgba(193,53,132,0.05), rgba(255,140,66,0.05));
+}
+
+.instagram-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.instagram-profile-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.instagram-handle {
+  font-weight: 700;
+  color: var(--dark-blue);
+  font-size: 1rem;
+}
+
+.instagram-subtext {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.instagram-follow-btn {
+  padding: 0.4rem 1.2rem;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366);
+  color: white;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.instagram-follow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 39, 67, 0.35);
+  color: white;
+}
+
+.instagram-feed-area {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instagram-feed-area .instagram-media {
+  margin: 0 auto !important;
+}
+
+.instagram-placeholder {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.instagram-placeholder i {
+  font-size: 4rem;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.instagram-placeholder p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.instagram-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--light-gray);
+  background: var(--light-gray);
+  display: flex;
+  justify-content: center;
+}
+
+.instagram-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #cc2366;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.instagram-view-all:hover {
+  gap: 0.75rem;
+  color: #bc1888;
+}
+
+.instagram-view-all i:first-child {
+  font-size: 1.1rem;
+}
+
+/* ===================================
+   ORCID & RESEARCHGATE ICON STYLES
+   =================================== */
+
+/* ORCID green in info-card icon box */
+.orcid-icon {
+  background: #a6ce39 !important;
+}
+
+.researchgate-icon {
+  background: #00ccbb !important;
+}
+
+/* Size academicons to match Font Awesome in hero social circles */
+.hero-social a .ai,
+.footer-social a .ai {
+  font-size: 1.2rem;
+}
+
+/* ORCID hover colour in hero/footer */
+.hero-social a:has(.ai-orcid):hover,
+.footer-social a:has(.ai-orcid):hover {
+  background: #a6ce39 !important;
+  color: white !important;
+}
+
+/* ResearchGate hover colour in hero/footer */
+.hero-social a:has(.fa-researchgate):hover,
+.footer-social a:has(.fa-researchgate):hover {
+  background: #00ccbb !important;
+  color: white !important;
+}
+
+/* ===================================
+   TIMELINE TWO-COLUMN LAYOUT
+   =================================== */
+
+.timeline-inner {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.timeline-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===================================
+   LAB PHOTO CAROUSEL (square, right side)
+   =================================== */
+
+.lab-carousel {
+  flex-shrink: 0;
+  width: 240px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
+}
+
+.carousel-track-wrapper {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  background: #111;
+}
+
+.carousel-track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-img.fading {
+  opacity: 0;
+}
+
+/* Placeholder shown before real images are added */
+.carousel-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.carousel-placeholder i {
+  font-size: 2.5rem;
+}
+
+.carousel-placeholder p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  color: var(--dark-blue);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover {
+  background: var(--primary-orange);
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+
+.carousel-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 0.5rem;
+  background: #1a1a1a;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.carousel-dot.active {
+  background: var(--primary-orange);
+  transform: scale(1.3);
+}
+
+/* Stack vertically on small screens */
+@media (max-width: 700px) {
+  .timeline-inner {
+    flex-direction: column;
+  }
+  .lab-carousel {
+    width: 100%;
+  }
+  .carousel-track-wrapper {
+    width: 100%;
+    height: 220px;
+  }
+}
+
+/* ===================================
+   OTHER RESEARCH EXPERIENCES SECTION
+   =================================== */
+
+.research-experiences {
+  /* inherits section-alt background */
+}
+
+.research-exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.research-exp-card {
+  background: var(--white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.research-exp-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.research-exp-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+}
+
+.research-exp-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.research-exp-card:hover .research-exp-image img {
+  transform: scale(1.06);
+}
+
+.research-exp-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.research-exp-card:hover .research-exp-overlay {
+  opacity: 1;
+}
+
+.research-exp-overlay .overlay-content {
+  text-align: center;
+  color: white;
+  padding: 1.5rem;
+}
+
+.research-exp-overlay .overlay-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: white;
+}
+
+.research-exp-overlay .overlay-content p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.research-exp-info {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.research-exp-tag {
+  display: inline-block;
+  background: var(--pale-orange);
+  color: var(--dark-orange);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.research-exp-info h4 {
+  color: var(--dark-blue);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ===================================
+   RESEARCH MODAL CAROUSEL
+   =================================== */
+
+.research-modal-carousel {
+  position: relative;
+  width: 100%;
+  background: #111;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.research-modal-carousel #researchModalImage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.18s ease;
+}
+
+.research-modal-carousel #researchModalImage.fading {
+  opacity: 0;
+}
+
+.modal-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.88);
+  color: var(--dark-blue);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.modal-carousel-btn:hover {
+  background: var(--primary-orange);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.modal-carousel-prev { left: 12px; }
+.modal-carousel-next { right: 12px; }
+
+.modal-carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.modal-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-carousel-dot.active {
+  background: white;
+  transform: scale(1.3);
 }
