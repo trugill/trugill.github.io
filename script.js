@@ -53,6 +53,107 @@
 ];
 
 /* ===================================
+   OTHER RESEARCH EXPERIENCES DATA & MODAL
+   =================================== */
+
+// EDIT: Each entry can have multiple images — add as many paths as you like to the images array.
+// The first image is also used as the card thumbnail.
+const researchExpData = [
+    {
+        title: "Experience Name 1",
+        category: "Fieldwork",
+        description: "Detailed description of this research experience. Describe what you did, where it took place, what you learned, and why it was significant to your research journey.",
+        images: ["images/exp1.jpg", "images/exp1b.jpg", "images/exp1c.jpg"]
+    },
+    {
+        title: "Experience Name 2",
+        category: "Conference",
+        description: "Detailed description of this experience. Perhaps a conference you attended or presented at, a workshop, a collaboration with another institution, or independent research.",
+        images: ["images/exp2.jpg", "images/exp2b.jpg"]
+    },
+    {
+        title: "Experience Name 3",
+        category: "Collaboration",
+        description: "Detailed description of this collaborative experience. Explain the institutions involved, your role, and the outcomes or insights gained.",
+        images: ["images/exp3.jpg"]
+    }
+    // Add more entries matching the cards in index.html
+];
+
+const researchModal      = document.getElementById('researchModal');
+const researchModalImage = document.getElementById('researchModalImage');
+const researchModalTitle = document.getElementById('researchModalTitle');
+const researchModalCat   = document.getElementById('researchModalCategory');
+const researchModalDesc  = document.getElementById('researchModalDescription');
+const researchModalDots  = document.getElementById('researchModalDots');
+
+let researchModalImages  = [];
+let researchModalCurrent = 0;
+
+function researchModalGoTo(index) {
+    researchModalCurrent = (index + researchModalImages.length) % researchModalImages.length;
+    researchModalImage.classList.add('fading');
+    setTimeout(() => {
+        researchModalImage.src = researchModalImages[researchModalCurrent];
+        researchModalImage.classList.remove('fading');
+    }, 180);
+    // Update dots
+    researchModalDots.querySelectorAll('.modal-carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === researchModalCurrent);
+    });
+    // Hide buttons if only one image
+    const btns = researchModal.querySelectorAll('.modal-carousel-btn');
+    btns.forEach(b => b.style.display = researchModalImages.length > 1 ? 'flex' : 'none');
+}
+
+function researchModalPrev() { researchModalGoTo(researchModalCurrent - 1); }
+function researchModalNext() { researchModalGoTo(researchModalCurrent + 1); }
+
+function openResearchModal(index) {
+    const item = researchExpData[index];
+    researchModalImages  = item.images || [item.image];
+    researchModalCurrent = 0;
+
+    researchModalTitle.textContent = item.title;
+    researchModalCat.textContent   = item.category;
+    researchModalDesc.textContent  = item.description;
+
+    // Build dots
+    researchModalDots.innerHTML = '';
+    if (researchModalImages.length > 1) {
+        researchModalImages.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'modal-carousel-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => researchModalGoTo(i));
+            researchModalDots.appendChild(dot);
+        });
+    }
+
+    researchModalImage.src = researchModalImages[0];
+    researchModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Show/hide nav buttons
+    const btns = researchModal.querySelectorAll('.modal-carousel-btn');
+    btns.forEach(b => b.style.display = researchModalImages.length > 1 ? 'flex' : 'none');
+}
+
+function closeResearchModal() {
+    researchModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+researchModal.addEventListener('click', (e) => {
+    if (e.target === researchModal) closeResearchModal();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && researchModal.classList.contains('active')) {
+        closeResearchModal();
+    }
+});
+
+/* ===================================
    NAVIGATION FUNCTIONALITY
    =================================== */
 
@@ -145,47 +246,82 @@ window.addEventListener('scroll', () => {
    PORTFOLIO FILTERING
    =================================== */
 
-const filterBtns = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
+/* ===================================
+   PORTFOLIO FILTERING — DIRECTIONAL SWIPE
+   =================================== */
 
-/**
- * Filter portfolio items by category
- * @param {string} category - The category to filter by
- */
-function filterPortfolio(category) {
-    portfolioItems.forEach(item => {
-        const itemCategory = item.getAttribute('data-category');
-        
-        if (category === 'all' || itemCategory === category) {
-            item.style.display = 'block';
-            // Add animation
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'scale(1)';
-            }, 100);
-        } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                item.style.display = 'none';
-            }, 300);
-        }
+// Category order determines swipe direction
+const CATEGORY_ORDER = ['gis', 'research', 'other', 'art'];
+let currentCategoryIndex = CATEGORY_ORDER.indexOf('gis'); // default: GIS
+let isAnimating = false;
+
+const portfolioGrid = document.getElementById('portfolioGrid');
+
+function showCategory(newFilter, newIndex) {
+  if (isAnimating || newIndex === currentCategoryIndex) return;
+  isAnimating = true;
+
+  const viewport    = document.querySelector('.portfolio-viewport');
+  const goingRight  = newIndex > currentCategoryIndex;
+  const outClass    = goingRight ? 'swipe-out-left'  : 'swipe-out-right';
+  const inClass     = goingRight ? 'swipe-in-left'   : 'swipe-in-right';
+
+  viewport.classList.add('is-animating');
+  portfolioGrid.classList.add(outClass);
+
+  portfolioGrid.addEventListener('animationend', function onOut() {
+    portfolioGrid.removeEventListener('animationend', onOut);
+    portfolioGrid.classList.remove(outClass);
+
+    document.querySelectorAll('.portfolio-item, .instagram-embed-card').forEach(item => {
+      item.classList.toggle('pf-hidden', item.dataset.category !== newFilter);
     });
+
+    // Re-trigger Instagram embed rendering when switching to Art
+    if (newFilter === 'art') {
+      setTimeout(reinitInstagram, 100);
+    }
+
+    currentCategoryIndex = newIndex;
+
+    portfolioGrid.classList.add(inClass);
+    portfolioGrid.addEventListener('animationend', function onIn() {
+      portfolioGrid.removeEventListener('animationend', onIn);
+      portfolioGrid.classList.remove(inClass);
+      viewport.classList.remove('is-animating');
+      isAnimating = false;
+    }, { once: true });
+
+  }, { once: true });
 }
 
-// Add click event listeners to filter buttons
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        // Filter portfolio items
-        const category = btn.getAttribute('data-filter');
-        filterPortfolio(category);
-    });
+// Initialise: show only GIS items on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.portfolio-item, .instagram-embed-card').forEach(item => {
+    if (item.dataset.category !== 'gis') item.classList.add('pf-hidden');
+  });
+});
+
+// Re-process Instagram embed when Art tab becomes visible
+function reinitInstagram() {
+  if (window.instgrm && window.instgrm.Embeds) {
+    window.instgrm.Embeds.process();
+  }
+}
+
+// Wire up filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('active')) return;
+
+    const newFilter = btn.dataset.filter;
+    const newIndex  = parseInt(btn.dataset.index, 10);
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    showCategory(newFilter, newIndex);
+  });
 });
 
 /* ===================================
@@ -198,23 +334,19 @@ const modalTitle = document.getElementById('modalTitle');
 const modalCategory = document.getElementById('modalCategory');
 const modalDescription = document.getElementById('modalDescription');
 const modalTags = document.getElementById('modalTags');
-const modalLink = document.getElementById('modalLink');
-
 /**
  * Open portfolio modal with item details
  * @param {number} index - Index of portfolio item in portfolioData array
  */
 function openModal(index) {
     const item = portfolioData[index];
-    
-    // Populate modal with data
+
     modalImage.src = item.image;
     modalImage.alt = item.title;
     modalTitle.textContent = item.title;
     modalCategory.textContent = item.category;
     modalDescription.textContent = item.description;
-    
-    // Add tags
+
     modalTags.innerHTML = '';
     item.tags.forEach(tag => {
         const tagElement = document.createElement('span');
@@ -222,16 +354,7 @@ function openModal(index) {
         tagElement.textContent = tag;
         modalTags.appendChild(tagElement);
     });
-    
-    // Show/hide link button
-    if (item.link) {
-        modalLink.href = item.link;
-        modalLink.style.display = 'inline-flex';
-    } else {
-        modalLink.style.display = 'none';
-    }
-    
-    // Show modal
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -704,3 +827,313 @@ window.addEventListener('unhandledrejection', (e) => {
 });
 
 
+
+/* ===================================
+   EASTER EGG BUTTON (FOOTER)
+   =================================== */
+
+// Each palette swaps out the site's orange CSS variables for a new accent color
+const eggPalettes = [
+  // 0: original orange (reset)
+  {
+    primary:   '#ff8c42',
+    secondary: '#f4a261',
+    dark:      '#e76f51',
+    light:     '#ffa563',
+    pale:      '#ffe8d6',
+    shadow:    'rgba(255, 140, 66, 0.3)',
+    gradient1: '#ff8c42',
+    gradient2: '#f4a261',
+  },
+  // 1: purple
+  {
+    primary:   '#a855f7',
+    secondary: '#c084fc',
+    dark:      '#7e22ce',
+    light:     '#d8b4fe',
+    pale:      '#f3e8ff',
+    shadow:    'rgba(168, 85, 247, 0.3)',
+    gradient1: '#a855f7',
+    gradient2: '#c084fc',
+  },
+  // 2: green
+  {
+    primary:   '#22c55e',
+    secondary: '#4ade80',
+    dark:      '#15803d',
+    light:     '#86efac',
+    pale:      '#dcfce7',
+    shadow:    'rgba(34, 197, 94, 0.3)',
+    gradient1: '#22c55e',
+    gradient2: '#4ade80',
+  },
+  // 3: cyan
+  {
+    primary:   '#06b6d4',
+    secondary: '#38bdf8',
+    dark:      '#0e7490',
+    light:     '#7dd3fc',
+    pale:      '#e0f2fe',
+    shadow:    'rgba(6, 182, 212, 0.3)',
+    gradient1: '#06b6d4',
+    gradient2: '#38bdf8',
+  },
+  // 4: pink
+  {
+    primary:   '#ec4899',
+    secondary: '#f472b6',
+    dark:      '#be185d',
+    light:     '#f9a8d4',
+    pale:      '#fce7f3',
+    shadow:    'rgba(236, 72, 153, 0.3)',
+    gradient1: '#ec4899',
+    gradient2: '#f472b6',
+  },
+  // 5: red
+  {
+    primary:   '#ef4444',
+    secondary: '#f87171',
+    dark:      '#b91c1c',
+    light:     '#fca5a5',
+    pale:      '#fee2e2',
+    shadow:    'rgba(239, 68, 68, 0.3)',
+    gradient1: '#ef4444',
+    gradient2: '#f87171',
+  },
+  // 6: lime
+  {
+    primary:   '#84cc16',
+    secondary: '#a3e635',
+    dark:      '#4d7c0f',
+    light:     '#d9f99d',
+    pale:      '#f7fee7',
+    shadow:    'rgba(132, 204, 22, 0.3)',
+    gradient1: '#84cc16',
+    gradient2: '#a3e635',
+  },
+  // 7: amber
+  {
+    primary:   '#f59e0b',
+    secondary: '#fbbf24',
+    dark:      '#b45309',
+    light:     '#fde68a',
+    pale:      '#fffbeb',
+    shadow:    'rgba(245, 158, 11, 0.3)',
+    gradient1: '#f59e0b',
+    gradient2: '#fbbf24',
+  },
+];
+
+let eggPressCount = 0;
+let eggPaletteIndex = 0;
+let rainbowAnimFrame = null;
+let rainbowHue = 0;
+
+function startRainbowMode() {
+  const btn = document.getElementById('easterEggBtn');
+  const root = document.documentElement;
+
+  // Inject rainbow keyframe style if not already present
+  if (!document.getElementById('rainbow-style')) {
+    const style = document.createElement('style');
+    style.id = 'rainbow-style';
+    style.textContent = `
+      @keyframes rainbow-bg {
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .rainbow-gradient-el {
+        background: linear-gradient(135deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff0000) !important;
+        background-size: 400% 400% !important;
+        animation: rainbow-bg 3s ease infinite !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: unset !important;
+        background-clip: unset !important;
+        color: white !important;
+      }
+      .rainbow-text-el {
+        background: linear-gradient(135deg, #ff0000, #ff7700, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff0000);
+        background-size: 400% 400%;
+        animation: rainbow-bg 3s ease infinite;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Animate CSS variable hue for things that use var(--primary-orange)
+  function tick() {
+    rainbowHue = (rainbowHue + 1) % 360;
+    const h = rainbowHue;
+    const h2 = (h + 40) % 360;
+    const h3 = (h + 80) % 360;
+
+    root.style.setProperty('--primary-orange',   `hsl(${h}, 100%, 55%)`);
+    root.style.setProperty('--secondary-orange', `hsl(${h2}, 100%, 60%)`);
+    root.style.setProperty('--dark-orange',      `hsl(${h3}, 100%, 40%)`);
+    root.style.setProperty('--light-orange',     `hsl(${h}, 100%, 70%)`);
+    root.style.setProperty('--pale-orange',      `hsl(${h}, 100%, 93%)`);
+    root.style.setProperty('--shadow-orange',    `0 8px 20px hsla(${h}, 100%, 55%, 0.4)`);
+    root.style.setProperty('--gradient-primary',
+      `linear-gradient(135deg, hsl(${h},100%,55%) 0%, hsl(${h2},100%,60%) 50%, hsl(${h3},100%,55%) 100%)`);
+    root.style.setProperty('--gradient-secondary',
+      `linear-gradient(135deg, hsl(${h3},100%,40%) 0%, hsl(${h},100%,55%) 100%)`);
+
+    rainbowAnimFrame = requestAnimationFrame(tick);
+  }
+  rainbowAnimFrame = requestAnimationFrame(tick);
+
+  // Style the button itself as a rainbow
+  btn.classList.add('rainbow-gradient-el');
+  btn.style.background = '';
+  btn.style.color = '';
+  btn.style.borderColor = 'transparent';
+}
+
+function stopRainbowMode() {
+  if (rainbowAnimFrame) {
+    cancelAnimationFrame(rainbowAnimFrame);
+    rainbowAnimFrame = null;
+  }
+  const btn = document.getElementById('easterEggBtn');
+  btn.classList.remove('rainbow-gradient-el');
+}
+
+function handleEasterEggPress() {
+  const btn = document.getElementById('easterEggBtn');
+  if (!btn) return;
+
+  eggPressCount++;
+  const cyclePos = eggPressCount % 3 || 3;
+
+  // Floundering animation
+  btn.classList.remove('egg-flop1', 'egg-flop2', 'egg-flop3');
+  void btn.offsetWidth;
+  btn.classList.add(`egg-flop${cyclePos}`);
+  btn.addEventListener('animationend', () => {
+    btn.classList.remove('egg-flop1', 'egg-flop2', 'egg-flop3');
+  }, { once: true });
+
+  // On every 3rd press, swap the entire site's color palette
+  if (eggPressCount % 3 === 0) {
+    // Stop rainbow if it was running
+    if (rainbowAnimFrame) stopRainbowMode();
+
+    eggPaletteIndex = (eggPaletteIndex + 1) % eggPalettes.length;
+
+    // 3rd color switch (9 presses) = index 3 → trigger rainbow instead
+    if (eggPaletteIndex === 3) {
+      startRainbowMode();
+      return;
+    }
+
+    const p = eggPalettes[eggPaletteIndex];
+    const root = document.documentElement;
+
+    root.style.setProperty('--primary-orange',   p.primary);
+    root.style.setProperty('--secondary-orange', p.secondary);
+    root.style.setProperty('--dark-orange',      p.dark);
+    root.style.setProperty('--light-orange',     p.light);
+    root.style.setProperty('--pale-orange',      p.pale);
+    root.style.setProperty('--shadow-orange',    `0 8px 20px ${p.shadow}`);
+    root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${p.gradient1} 0%, ${p.gradient2} 100%)`);
+    root.style.setProperty('--gradient-secondary', `linear-gradient(135deg, ${p.dark} 0%, ${p.primary} 100%)`);
+
+    // Keep button tinted to the new accent so it stays visible
+    btn.style.background    = p.pale;
+    btn.style.color         = p.dark;
+    btn.style.borderColor   = p.primary;
+  }
+}
+
+// ===================================
+//  LAB PHOTO CAROUSELS
+// ===================================
+
+function initCarousels() {
+  document.querySelectorAll('.lab-carousel').forEach(carousel => {
+    const images = carousel.dataset.images
+      ? carousel.dataset.images.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+
+    const img      = carousel.querySelector('.carousel-img');
+    const track    = carousel.querySelector('.carousel-track');
+    const dotsEl   = carousel.querySelector('.carousel-dots');
+    const prevBtn  = carousel.querySelector('.carousel-prev');
+    const nextBtn  = carousel.querySelector('.carousel-next');
+
+    let current = 0;
+
+    // Build placeholder shown when no real image loads
+    function showPlaceholder() {
+      img.style.display = 'none';
+      let ph = track.querySelector('.carousel-placeholder');
+      if (!ph) {
+        ph = document.createElement('div');
+        ph.className = 'carousel-placeholder';
+        ph.innerHTML = '<i class="fas fa-camera"></i><p>Add photo paths to data-images</p>';
+        track.appendChild(ph);
+      }
+      ph.style.display = 'flex';
+    }
+
+    function hidePlaceholder() {
+      const ph = track.querySelector('.carousel-placeholder');
+      if (ph) ph.style.display = 'none';
+      img.style.display = 'block';
+    }
+
+    // Build dot indicators
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      images.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Photo ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+      });
+    }
+
+    function updateDots() {
+      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function updateButtons() {
+      prevBtn.disabled = images.length <= 1;
+      nextBtn.disabled = images.length <= 1;
+    }
+
+    function goTo(index) {
+      if (images.length === 0) { showPlaceholder(); return; }
+      img.classList.add('fading');
+      setTimeout(() => {
+        current = (index + images.length) % images.length;
+        img.src = images[current];
+        img.onload  = () => { hidePlaceholder(); img.classList.remove('fading'); };
+        img.onerror = () => { showPlaceholder(); img.classList.remove('fading'); };
+        updateDots();
+      }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Init
+    if (images.length === 0) {
+      showPlaceholder();
+      updateButtons();
+    } else {
+      buildDots();
+      updateButtons();
+      goTo(0);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initCarousels);
