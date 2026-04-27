@@ -1114,6 +1114,7 @@ function initCarousels() {
       img.classList.add('fading');
       setTimeout(() => {
         current = (index + images.length) % images.length;
+        img.dataset.currentIndex = current;
         img.src = images[current];
         img.onload  = () => { hidePlaceholder(); img.classList.remove('fading'); };
         img.onerror = () => { showPlaceholder(); img.classList.remove('fading'); };
@@ -1137,3 +1138,91 @@ function initCarousels() {
 }
 
 document.addEventListener('DOMContentLoaded', initCarousels);
+
+// ===================================
+//  CAROUSEL IMAGE LIGHTBOX
+// ===================================
+(function () {
+  const lightbox = document.getElementById('carouselLightbox');
+  const lbImg    = document.getElementById('lightboxImg');
+  const lbPrev   = document.getElementById('lightboxPrev');
+  const lbNext   = document.getElementById('lightboxNext');
+  const lbClose  = document.getElementById('lightboxClose');
+  const lbDots   = document.getElementById('lightboxDots');
+
+  let lbImages  = [];
+  let lbCurrent = 0;
+
+  function buildDots() {
+    lbDots.innerHTML = '';
+    if (lbImages.length <= 1) return;
+    lbImages.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'lightbox-dot' + (i === lbCurrent ? ' active' : '');
+      dot.setAttribute('aria-label', `Photo ${i + 1}`);
+      dot.addEventListener('click', e => { e.stopPropagation(); lbGoTo(i); });
+      lbDots.appendChild(dot);
+    });
+  }
+
+  function updateDots() {
+    lbDots.querySelectorAll('.lightbox-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === lbCurrent)
+    );
+  }
+
+  function lbGoTo(index) {
+    lbImg.classList.add('fading');
+    setTimeout(() => {
+      lbCurrent = (index + lbImages.length) % lbImages.length;
+      lbImg.src = lbImages[lbCurrent];
+      lbImg.classList.remove('fading');
+      updateDots();
+    }, 180);
+  }
+
+  function openLightbox(images, startIndex) {
+    lbImages  = images;
+    lbCurrent = startIndex;
+    lbImg.src = lbImages[lbCurrent];
+    buildDots();
+    const showNav = lbImages.length > 1;
+    lbPrev.style.display = showNav ? 'flex' : 'none';
+    lbNext.style.display = showNav ? 'flex' : 'none';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbPrev.addEventListener('click',  e => { e.stopPropagation(); lbGoTo(lbCurrent - 1); });
+  lbNext.addEventListener('click',  e => { e.stopPropagation(); lbGoTo(lbCurrent + 1); });
+  lbClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbGoTo(lbCurrent - 1);
+    if (e.key === 'ArrowRight') lbGoTo(lbCurrent + 1);
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lab-carousel').forEach(carousel => {
+      const images = carousel.dataset.images
+        ? carousel.dataset.images.split(',').map(s => s.trim()).filter(Boolean)
+        : [];
+      if (images.length === 0) return;
+
+      const img = carousel.querySelector('.carousel-img');
+      img.addEventListener('click', () => {
+        const idx = parseInt(img.dataset.currentIndex) || 0;
+        openLightbox(images, idx);
+      });
+    });
+  });
+})();
