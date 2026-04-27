@@ -11,12 +11,12 @@
         link: "https://example.com/research1"
     },
     {
-        title: "Development Project",
-        category: "Project",
-        description: "Description of your software development project. Highlight the technologies used, challenges overcome, and the final outcome. Explain how this project demonstrates your technical skills.",
-        image: "images/project1.jpg",
-        tags: ["Web Development", "JavaScript", "React"],
-        link: "https://github.com/yourusername/project"
+        title: "Feral Hog Proximity Analysis",
+        category: "GIS",
+        description: "Using ArcGIS, this map visualizes buffers generated around roads and rivers to analyze feral hog sighting proximity. The \"Generate Near Table\" function was used to calculate the average distance of reported feral hog sightings to the nearest road and river, providing spatial insight into habitat use and movement patterns relative to human infrastructure.",
+        image: "images/Portfolio/ENRTABuffers.png",
+        tags: ["ArcGIS", "Spatial Analysis", "Buffer Analysis", "Wildlife GIS", "Generate Near Table"],
+        link: null
     },
     {
         title: "Photography Collection",
@@ -35,12 +35,12 @@
         link: "https://example.com/research2"
     },
     {
-        title: "Technical Project 2",
-        category: "Project",
-        description: "Description of another technical project showcasing your skills and creativity. Explain the problem solved and the technologies implemented.",
-        image: "images/project2.jpg",
-        tags: ["Full Stack", "Database", "API"],
-        link: "https://github.com/yourusername/project2"
+        title: "Triangle Digital Elevation Model",
+        category: "GIS",
+        description: "A digital elevation model rendered as triangulated polygons, created in QGIS. The workflow involved clipping a raster to a feature extent, generating a hexagonal grid, extracting centroids, building shortest lines between neighbors, snapping to a fine grid, polygonizing, and applying Zonal Statistics to assign elevation values. The graduated color symbology reflects mean elevation per polygon, producing a striking geometric representation of terrain.",
+        image: "images/Portfolio/TriangleElevation.png",
+        tags: ["QGIS", "Digital Elevation Model", "Raster Analysis", "Zonal Statistics", "Vector Geometry"],
+        link: null
     },
     {
         title: "Creative Hobby Work",
