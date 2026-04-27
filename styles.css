@@ -3000,6 +3000,7 @@ a:hover {
   width: 240px;
   height: 240px;
   background: #111;
+  cursor: zoom-in;
 }
 
 .carousel-track {
@@ -3047,35 +3048,37 @@ a:hover {
   line-height: 1.4;
 }
 
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  background: #1a1a1a;
+}
+
 .carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 32px;
-  height: 32px;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: none;
-  background: rgba(255,255,255,0.85);
-  color: var(--dark-blue);
-  font-size: 0.8rem;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 0.7rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   transition: background 0.2s ease, transform 0.2s ease;
-  backdrop-filter: blur(4px);
 }
 
 .carousel-btn:hover {
   background: var(--primary-orange);
-  color: #fff;
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
 }
-
-.carousel-prev { left: 8px; }
-.carousel-next { right: 8px; }
 
 .carousel-btn:disabled {
   opacity: 0.25;
@@ -3086,9 +3089,9 @@ a:hover {
 .carousel-dots {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
-  padding: 0.5rem;
-  background: #1a1a1a;
+  flex: 1;
 }
 
 .carousel-dot {
@@ -3421,6 +3424,3 @@ a:hover {
   transform: scale(1.35);
 }
 
-.carousel-img {
-  cursor: zoom-in;
-}

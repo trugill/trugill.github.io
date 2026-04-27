@@ -1218,8 +1218,9 @@ document.addEventListener('DOMContentLoaded', initCarousels);
         : [];
       if (images.length === 0) return;
 
-      const img = carousel.querySelector('.carousel-img');
-      img.addEventListener('click', () => {
+      const wrapper = carousel.querySelector('.carousel-track-wrapper');
+      wrapper.addEventListener('click', () => {
+        const img = carousel.querySelector('.carousel-img');
         const idx = parseInt(img.dataset.currentIndex) || 0;
         openLightbox(images, idx);
       });
