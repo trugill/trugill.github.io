@@ -514,7 +514,7 @@
                                     </ul>
                                 </div>
                                 <!-- EDIT: Replace data-images with your comma-separated photo paths -->
-                                <div class="lab-carousel" data-images="images/lab2-photo1.jpg,images/lab2-photo2.jpg,images/lab2-photo3.jpg">
+                                <div class="lab-carousel" data-images="images/FitzgeraldLab/001.jpg,images/FitzgeraldLab/003.JPG,images/FitzgeraldLab/004.jpg,images/FitzgeraldLab/006.jpg,images/FitzgeraldLab/007.jpg,images/FitzgeraldLab/008.jpg,images/FitzgeraldLab/010.jpg,images/FitzgeraldLab/011.jpg,images/FitzgeraldLab/012.jpg,images/FitzgeraldLab/013.jpg,images/FitzgeraldLab/015.jpg">
                                     <div class="carousel-track-wrapper">
                                         <button class="carousel-btn carousel-prev" aria-label="Previous photo">
                                             <i class="fas fa-chevron-left"></i>
@@ -1218,6 +1218,25 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- ===================================
+         CAROUSEL IMAGE LIGHTBOX
+         =================================== -->
+    <div class="carousel-lightbox" id="carouselLightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="lightbox-inner">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="Lab photo enlarged">
+        </div>
+        <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-dots" id="lightboxDots"></div>
+    </div>
 
     <script async src="//www.instagram.com/embed.js"></script>
     <script src="script.js"></script>
