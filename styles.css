@@ -40,6 +40,41 @@
   /* Typography */
   --font-primary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   --font-heading: "Georgia", serif;
+
+  /* Themeable surface colors (overridden in dark mode) */
+  --surface-bg:      #ffffff;
+  --surface-alt:     #f8f9fa;
+  --surface-card:    #ffffff;
+  --text-primary:    #1a1a1a;
+  --text-secondary:  #6c757d;
+  --text-heading:    #264653;
+  --border-color:    rgba(0,0,0,0.08);
+  --nav-bg:          #ffffff;
+  --nav-shadow:      0 2px 20px rgba(0,0,0,0.1);
+}
+
+/* ===================================
+   DARK MODE OVERRIDES
+   =================================== */
+[data-theme="dark"] {
+  --surface-bg:      #121212;
+  --surface-alt:     #1e1e1e;
+  --surface-card:    #1e1e1e;
+  --text-primary:    #e8e8e8;
+  --text-secondary:  #a0a0a0;
+  --text-heading:    #e8e8e8;
+  --border-color:    rgba(255,255,255,0.08);
+  --nav-bg:          #181818;
+  --nav-shadow:      0 2px 20px rgba(0,0,0,0.5);
+  --white:           #1e1e1e;
+  --light-gray:      #2a2a2a;
+  --dark-blue:       #e8e8e8;
+  --gray:            #a0a0a0;
+  --cream:           #1e1e1e;
+  --pale-orange:     #3a2210;
+  --dark-gray:       #cccccc;
+  --shadow-lg:       0 10px 15px rgba(0,0,0,0.4);
+  --shadow-xl:       0 20px 25px rgba(0,0,0,0.5);
 }
 
 /* ===================================
@@ -59,9 +94,10 @@ html {
 body {
   font-family: var(--font-primary);
   line-height: 1.6;
-  color: var(--black);
-  background-color: var(--white);
+  color: var(--text-primary);
+  background-color: var(--surface-bg);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Selection Color */
@@ -235,9 +271,9 @@ a:hover {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: var(--white);
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
+  background: var(--nav-bg);
+  box-shadow: var(--nav-shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header.scrolled {
@@ -3471,3 +3507,54 @@ a:hover {
   transform: scale(1.35);
 }
 
+
+/* ===================================
+   DARK MODE TOGGLE BUTTON
+   =================================== */
+.dark-mode-toggle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-orange);
+  background: transparent;
+  color: var(--primary-orange);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+.dark-mode-toggle:hover {
+  background: var(--primary-orange);
+  color: #fff;
+  transform: rotate(20deg) scale(1.1);
+}
+
+/* ===================================
+   MODAL LANDSCAPE LAYOUT
+   When image is significantly wider than tall,
+   stack info below instead of beside
+   =================================== */
+.modal-body.modal-landscape {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.modal-body.modal-landscape .modal-image-wrap {
+  height: 420px;
+  width: 100% !important;
+}
+
+.modal-body.modal-landscape .modal-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.modal-body.modal-landscape .modal-info {
+  width: 100% !important;
+}

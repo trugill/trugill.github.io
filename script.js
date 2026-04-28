@@ -375,23 +375,33 @@ function openModal(index) {
         modalTags.appendChild(tagElement);
     });
 
-    // Reset image wrap width until we know the aspect ratio
+    const modalBody = document.querySelector('.modal-body');
     const imageWrap = document.querySelector('.modal-image-wrap');
+    const modalInfo = document.querySelector('.modal-info');
+
+    // Reset state
+    modalBody.classList.remove('modal-landscape');
     imageWrap.style.width = '';
+    modalInfo.style.width = '';
 
-    // Once image dimensions are known, size the wrap to fill the fixed height
-    const MODAL_IMG_HEIGHT = 420; // must match .modal-image-wrap height in CSS
-    const INFO_WIDTH = 320;       // must match .modal-info width in CSS
-    const PADDING = 64 + 32;      // 2rem padding each side + gap
+    const MODAL_IMG_HEIGHT = 420;
 
-    function applyModalWidth() {
-        if (modalImage.naturalWidth && modalImage.naturalHeight) {
-            const imgW = Math.round(MODAL_IMG_HEIGHT * modalImage.naturalWidth / modalImage.naturalHeight);
+    function applyModalLayout() {
+        if (!modalImage.naturalWidth || !modalImage.naturalHeight) return;
+        const ratio = modalImage.naturalWidth / modalImage.naturalHeight;
+        // "Significantly wider" = ratio > 1.6 (wider than a 16:10 screen)
+        if (ratio > 1.6) {
+            modalBody.classList.add('modal-landscape');
+        } else {
+            modalBody.classList.remove('modal-landscape');
+            const imgW = Math.round(MODAL_IMG_HEIGHT * ratio);
             imageWrap.style.width = imgW + 'px';
+            modalInfo.style.width = '320px';
         }
     }
-    if (modalImage.complete && modalImage.naturalWidth) applyModalWidth();
-    else modalImage.addEventListener('load', applyModalWidth, { once: true });
+
+    if (modalImage.complete && modalImage.naturalWidth) applyModalLayout();
+    else modalImage.addEventListener('load', applyModalLayout, { once: true });
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1263,5 +1273,33 @@ document.addEventListener('DOMContentLoaded', initCarousels);
         openLightbox(images, idx);
       });
     });
+  });
+})();
+/* ===================================
+   DARK MODE TOGGLE
+   =================================== */
+(function () {
+  const toggle = document.getElementById('darkModeToggle');
+  const icon   = document.getElementById('darkModeIcon');
+  const html   = document.documentElement;
+
+  function applyTheme(dark) {
+    if (dark) {
+      html.setAttribute('data-theme', 'dark');
+      icon.className = 'fas fa-sun';
+    } else {
+      html.removeAttribute('data-theme');
+      icon.className = 'fas fa-moon';
+    }
+  }
+
+  // Restore saved preference
+  const saved = localStorage.getItem('darkMode') === 'true';
+  applyTheme(saved);
+
+  toggle.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    applyTheme(!isDark);
+    localStorage.setItem('darkMode', !isDark);
   });
 })();
