@@ -300,6 +300,26 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.portfolio-item, .instagram-embed-card').forEach(item => {
     if (item.dataset.category !== 'gis') item.classList.add('pf-hidden');
   });
+
+  // Size each portfolio card width to match its image aspect ratio
+  const CARD_IMG_HEIGHT = 260; // must match .portfolio-image height in CSS
+  const MIN_CARD_W = 200;
+  const MAX_CARD_W = 600;
+
+  document.querySelectorAll('.portfolio-item').forEach(card => {
+    const img = card.querySelector('.portfolio-image img');
+    if (!img) return;
+    function applyWidth() {
+      if (img.naturalWidth && img.naturalHeight) {
+        const w = Math.min(MAX_CARD_W, Math.max(MIN_CARD_W,
+          Math.round(CARD_IMG_HEIGHT * img.naturalWidth / img.naturalHeight)
+        ));
+        card.style.width = w + 'px';
+      }
+    }
+    if (img.complete) applyWidth();
+    else img.addEventListener('load', applyWidth);
+  });
 });
 
 // Re-process Instagram embed when Art tab becomes visible
@@ -354,6 +374,24 @@ function openModal(index) {
         tagElement.textContent = tag;
         modalTags.appendChild(tagElement);
     });
+
+    // Reset image wrap width until we know the aspect ratio
+    const imageWrap = document.querySelector('.modal-image-wrap');
+    imageWrap.style.width = '';
+
+    // Once image dimensions are known, size the wrap to fill the fixed height
+    const MODAL_IMG_HEIGHT = 420; // must match .modal-image-wrap height in CSS
+    const INFO_WIDTH = 320;       // must match .modal-info width in CSS
+    const PADDING = 64 + 32;      // 2rem padding each side + gap
+
+    function applyModalWidth() {
+        if (modalImage.naturalWidth && modalImage.naturalHeight) {
+            const imgW = Math.round(MODAL_IMG_HEIGHT * modalImage.naturalWidth / modalImage.naturalHeight);
+            imageWrap.style.width = imgW + 'px';
+        }
+    }
+    if (modalImage.complete && modalImage.naturalWidth) applyModalWidth();
+    else modalImage.addEventListener('load', applyModalWidth, { once: true });
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
